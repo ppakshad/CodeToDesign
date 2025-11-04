@@ -73,6 +73,41 @@ The system implements a comprehensive metrics suite (M1–M16) designed to captu
 - **M1**: Function Count (structural size)
 - **M5**: CFG Node Sum (control flow graph complexity)
 
+
+## Metric Queries (Joern / CPG)
+
+This project computes design-relevant metrics (M1–M16) directly from the **Code Property Graph (CPG)** using Joern.  
+Below are example queries showing how each metric is derived. You can run these in the Joern shell (`./joern`) or inside a Joern script.
+
+> Note: in the code below, `cpg` is the loaded code property graph and `cleanMethods` is a filtered list of real (non-synthetic) methods.
+
+---
+
+### M1 – Functions (Unique Count)
+Count distinct method full names (excluding empty/synthetic ones):
+
+```scala
+val cleanMethods = cpg.method.l.filter(_.fullName.nonEmpty)
+val m1Pairs = cleanMethods.map { m =>
+  val fn = m.fullName.trim
+  val sg = Option(m.signature).map(_.trim).getOrElse("")
+  (fn, sg)
+}.distinct
+val M1 = m1Pairs.size
+println(s"M1 = $M1")
+```
+
+
+
+
+
+
+
+
+
+
+
+
 ## Installation
 
 ### Prerequisites
