@@ -1,0 +1,804 @@
+{
+  "report_id": "b7c1c8c8-6f6d-4a2e-9a5c-c6f2b3da3f3a",
+  "generated_at": "2025-10-18T00:00:00Z",
+  "system": {
+    "name": "Simple Car Rental System (C++)",
+    "version": "not specified in metadata",
+    "trust_boundaries": [
+      {
+        "id": "TB1",
+        "name": "User Console to Application Process",
+        "description": "Untrusted user input (keyboard/console) crosses into trusted application process memory for authentication and rental workflows."
+      }
+    ],
+    "components": [
+      {
+        "id": "C1",
+        "name": "Console UI",
+        "functions": [
+          "Menu:void()",
+          "Details:void(int)"
+        ]
+      },
+      {
+        "id": "C2",
+        "name": "Authentication (Login)",
+        "functions": [
+          "login:int()"
+        ]
+      },
+      {
+        "id": "C3",
+        "name": "Rental Workflow",
+        "functions": [
+          "user_input:void(int)",
+          "checklease:void(int)"
+        ]
+      },
+      {
+        "id": "C4",
+        "name": "In-memory Data Store",
+        "functions": [
+          "Menu:void()",
+          "Details:void(int)",
+          "user_input:void(int)",
+          "checklease:void(int)"
+        ]
+      }
+    ],
+    "data_flows": [
+      {
+        "from": "Actor:User",
+        "to": "C2.login:int()",
+        "data": [
+          "password"
+        ],
+        "crosses_trust_boundary": true
+      },
+      {
+        "from": "C2.login:int()",
+        "to": "C1.Menu:void()",
+        "data": [
+          "session state (authenticated flag)"
+        ],
+        "crosses_trust_boundary": false
+      },
+      {
+        "from": "Actor:User",
+        "to": "C1.Menu:void()",
+        "data": [
+          "menu selection index"
+        ],
+        "crosses_trust_boundary": true
+      },
+      {
+        "from": "C1.Menu:void()",
+        "to": "C1.Details:void(int)",
+        "data": [
+          "selected car index"
+        ],
+        "crosses_trust_boundary": false
+      },
+      {
+        "from": "Actor:User",
+        "to": "C3.user_input:void(int)",
+        "data": [
+          "name",
+          "national_id",
+          "payment_amount"
+        ],
+        "crosses_trust_boundary": true
+      },
+      {
+        "from": "C3.user_input:void(int)",
+        "to": "C3.checklease:void(int)",
+        "data": [
+          "payment_amount",
+          "car_price"
+        ],
+        "crosses_trust_boundary": false
+      }
+    ]
+  },
+  "actors": [
+    "User"
+  ],
+  "assets": [
+    "User password",
+    "Personal details (name, national ID)",
+    "Payment amount",
+    "Car catalog and pricing data",
+    "Session state (authenticated flag)"
+  ],
+  "use_cases": [
+    {
+      "uc_id": "UC1",
+      "label": "Login to System",
+      "actors": [
+        "User"
+      ],
+      "trigger": "Application start invokes login prompt (main calls login).",
+      "description": "The User authenticates to access the Simple Car Rental System using a password. Successful login grants access to the menu.",
+      "preconditions": [
+        "Application is started and running.",
+        "Console I/O is available for password entry."
+      ],
+      "postconditions": [
+        "User session is granted access to the main menu.",
+        "Screen is cleared and system is ready for further actions."
+      ],
+      "normal_flow": [
+        "User starts the application.",
+        "System displays a password prompt.",
+        "User enters the password.",
+        "System validates the password and grants access."
+      ],
+      "alt_flows": [],
+      "exceptions": [
+        "Incorrect password entered -> System displays 'Access Aborted...Please Try Again!!' and prompts again (state rolled back).",
+        "System rejects the attempt and re-prompts for password."
+      ],
+      "threats": [
+        "Spoofing via brute-force password guessing",
+        "Information disclosure if password input is echoed on screen",
+        "Availability loss from unlimited login attempts causing lockout/abuse"
+      ],
+      "binding_signatures": [
+        "login:int()"
+      ],
+      "bindings": [
+        {
+          "functionFullName": "login:int()",
+          "file": "CarRentalManagementSystem.cpp",
+          "codeBody": "",
+          "line": 135,
+          "score": 0.86,
+          "evidence": {
+            "lexical": [
+              "login",
+              "pass",
+              "cout"
+            ],
+            "graph": "main:int() → login:int()",
+            "io": "console:/getch"
+          }
+        }
+      ],
+      "supporting_functions": [
+        "main:int()"
+      ],
+      "has_source": false
+    },
+    {
+      "uc_id": "UC2",
+      "label": "Browse Available Cars",
+      "actors": [
+        "User"
+      ],
+      "trigger": "User reaches the main menu after login.",
+      "description": "The User browses the list of available car companies/models from the menu.",
+      "preconditions": [
+        "User is authenticated.",
+        "Car catalog is initialized in memory."
+      ],
+      "postconditions": [
+        "Selected car index is captured for subsequent actions.",
+        "Car details can be displayed for the selected item."
+      ],
+      "normal_flow": [
+        "User opens the main menu.",
+        "System displays a numbered list of available car companies.",
+        "User selects a car from the list.",
+        "System proceeds to show details for the selected car."
+      ],
+      "alt_flows": [
+        "User chooses to continue browsing other cars -> System redisplays the menu."
+      ],
+      "exceptions": [],
+      "threats": [
+        "Tampering with selection input (out-of-range index)",
+        "Availability impact from malformed input causing exceptions/crash",
+        "Information disclosure if internal indices or debug info are printed"
+      ],
+      "binding_signatures": [
+        "Menu:void()"
+      ],
+      "bindings": [
+        {
+          "functionFullName": "Menu:void()",
+          "file": "CarRentalManagementSystem.cpp",
+          "codeBody": "",
+          "line": 30,
+          "score": 0.81,
+          "evidence": {
+            "lexical": [
+              "menu",
+              "cout",
+              "company"
+            ],
+            "graph": "main:int() → Menu:void()",
+            "io": "console:/stdout"
+          }
+        }
+      ],
+      "supporting_functions": [
+        "main:int()",
+        "Details:void(int)"
+      ],
+      "has_source": false
+    },
+    {
+      "uc_id": "UC3",
+      "label": "View Selected Car Details",
+      "actors": [
+        "User"
+      ],
+      "trigger": "User selects a car from the menu.",
+      "description": "The system displays details of the selected car, including model, color, maximum speed, and price.",
+      "preconditions": [
+        "A car selection has been made.",
+        "Car attributes are available in memory."
+      ],
+      "postconditions": [
+        "Car details are displayed to the user.",
+        "The selection is ready for potential rental."
+      ],
+      "normal_flow": [
+        "User confirms a selection from the menu.",
+        "System displays model, color, maximum speed, and price of the selected car."
+      ],
+      "alt_flows": [],
+      "exceptions": [],
+      "threats": [
+        "Information disclosure if sensitive internal data structures are printed",
+        "Tampering risk if index leads to out-of-bounds access"
+      ],
+      "binding_signatures": [
+        "Details:void(int)"
+      ],
+      "bindings": [
+        {
+          "functionFullName": "Details:void(int)",
+          "file": "CarRentalManagementSystem.cpp",
+          "codeBody": "",
+          "line": 43,
+          "score": 0.84,
+          "evidence": {
+            "lexical": [
+              "details",
+              "model",
+              "color"
+            ],
+            "graph": "main:int() → Details:void(int)",
+            "io": "console:/stdout"
+          }
+        }
+      ],
+      "supporting_functions": [
+        "main:int()",
+        "Menu:void()"
+      ],
+      "has_source": false
+    },
+    {
+      "uc_id": "UC4",
+      "label": "Rent a Car",
+      "actors": [
+        "User"
+      ],
+      "trigger": "User confirms they want to rent the selected car.",
+      "description": "The User proceeds to rent a car by providing personal details and payment amount; the system verifies the payment and confirms the rental if sufficient.",
+      "preconditions": [
+        "User is authenticated and a car has been selected.",
+        "Console I/O available for data entry."
+      ],
+      "postconditions": [
+        "Personal details and payment input are recorded.",
+        "Rental is confirmed if payment meets or exceeds car price."
+      ],
+      "normal_flow": [
+        "User confirms intention to rent.",
+        "System prompts for personal details and payment amount.",
+        "User enters personal details and payment amount.",
+        "System verifies payment against price.",
+        "System confirms the rental on success."
+      ],
+      "alt_flows": [
+        "User chooses not to proceed -> System clears screen and returns to menu.",
+        "User chooses to exit -> System clears screen and terminates session."
+      ],
+      "exceptions": [
+        "Payment less than price -> 'Not Available' and rental not completed (rolled back)."
+      ],
+      "threats": [
+        "Information disclosure of PII (name, national ID) on console/output",
+        "Tampering with payment amount format or range",
+        "Repudiation without audit of rental confirmation"
+      ],
+      "binding_signatures": [
+        "user_input:void(int)",
+        "checklease:void(int)"
+      ],
+      "bindings": [
+        {
+          "functionFullName": "user_input:void(int)",
+          "file": "CarRentalManagementSystem.cpp",
+          "codeBody": "",
+          "line": 67,
+          "score": 0.69,
+          "evidence": {
+            "lexical": [
+              "lease",
+              "user",
+              "input"
+            ],
+            "graph": "main:int() → user_input:void(int)",
+            "io": "console:/stdin"
+          }
+        },
+        {
+          "functionFullName": "checklease:void(int)",
+          "file": "CarRentalManagementSystem.cpp",
+          "codeBody": "",
+          "line": 58,
+          "score": 0.62,
+          "evidence": {
+            "lexical": [
+              "checklease",
+              "payment",
+              "price"
+            ],
+            "graph": "user_input:void(int) → checklease:void(int)",
+            "io": "console:/stdout"
+          }
+        }
+      ],
+      "supporting_functions": [
+        "main:int()",
+        "Menu:void()",
+        "Details:void(int)"
+      ],
+      "has_source": false
+    },
+    {
+      "uc_id": "UC5",
+      "label": "Enter Personal Details",
+      "actors": [
+        "User"
+      ],
+      "trigger": "System prompts for renter details after user confirms renting.",
+      "description": "The User provides name, national ID, and payment amount required to process the rental.",
+      "preconditions": [
+        "User has confirmed the intention to rent a car.",
+        "Input fields are available via console."
+      ],
+      "postconditions": [
+        "Personal details are stored in memory structures.",
+        "Payment amount is captured for verification."
+      ],
+      "normal_flow": [
+        "System prompts for name, national ID, and payment amount.",
+        "User enters the requested information.",
+        "System records the provided details."
+      ],
+      "alt_flows": [],
+      "exceptions": [],
+      "threats": [
+        "PII exposure via console echo or lack of masking",
+        "Tampering with numeric input (overflow, negative values)"
+      ],
+      "binding_signatures": [
+        "user_input:void(int)"
+      ],
+      "bindings": [
+        {
+          "functionFullName": "user_input:void(int)",
+          "file": "CarRentalManagementSystem.cpp",
+          "codeBody": "",
+          "line": 67,
+          "score": 0.83,
+          "evidence": {
+            "lexical": [
+              "user",
+              "input",
+              "lease"
+            ],
+            "graph": "main:int() → user_input:void(int)",
+            "io": "console:/stdin"
+          }
+        }
+      ],
+      "supporting_functions": [
+        "checklease:void(int)",
+        "main:int()"
+      ],
+      "has_source": false
+    },
+    {
+      "uc_id": "UC6",
+      "label": "Verify Payment Amount",
+      "actors": [
+        "User"
+      ],
+      "trigger": "Rental process requires checking the provided payment against the car price.",
+      "description": "The system compares the provided payment amount with the selected car's price and decides whether to approve the rental.",
+      "preconditions": [
+        "Car selection and payment amount are available.",
+        "Car pricing data is initialized."
+      ],
+      "postconditions": [
+        "Approval decision is made based on payment sufficiency.",
+        "User is informed of success or failure."
+      ],
+      "normal_flow": [
+        "System compares the provided payment with the car's price.",
+        "If sufficient, system indicates success."
+      ],
+      "alt_flows": [],
+      "exceptions": [
+        "Payment less than required -> 'Not Available' and workflow stops (rolled back)."
+      ],
+      "threats": [
+        "Tampering with payment value type/format",
+        "Repudiation of decision without audit trail",
+        "Availability issues if invalid input causes exceptions"
+      ],
+      "binding_signatures": [
+        "checklease:void(int)"
+      ],
+      "bindings": [
+        {
+          "functionFullName": "checklease:void(int)",
+          "file": "CarRentalManagementSystem.cpp",
+          "codeBody": "",
+          "line": 58,
+          "score": 0.82,
+          "evidence": {
+            "lexical": [
+              "checklease",
+              "payment",
+              "price"
+            ],
+            "graph": "user_input:void(int) → checklease:void(int)",
+            "io": "console:/stdout"
+          }
+        }
+      ],
+      "supporting_functions": [
+        "user_input:void(int)",
+        "main:int()"
+      ],
+      "has_source": false
+    }
+  ],
+  "design_findings": [
+    {
+      "id": "DF1",
+      "uc_id": "UC1",
+      "label": "Weak authentication: static/console password with no throttling or hardening",
+      "design_flaw": "Authentication appears to rely on a single console password check likely within the process, with no hashing, lockout, or rate limiting.",
+      "description": "The login flow suggests a simple password prompt without evidence of secure credential storage or brute-force defenses. This enables spoofing via guessing and risks hardcoded or plaintext comparisons, undermining the trust boundary between user input and the application.",
+      "severity": "High",
+      "confidence": "Medium",
+      "impact_cia": {
+        "Confidentiality": "High",
+        "Integrity": "Medium",
+        "Availability": "Low"
+      },
+      "evidence": {
+        "bindings": [
+          {
+            "functionFullName": "login:int()",
+            "file": "CarRentalManagementSystem.cpp",
+            "lines": [
+              135
+            ]
+          }
+        ],
+        "code_snippets": []
+      },
+      "recommendation_design": "Adopt a proper authentication design: externalize credentials, store password hashes with a strong KDF (e.g., Argon2id/scrypt), implement lockout/backoff and attempt throttling, and consider MFA if risk warrants. Avoid hardcoded secrets and define an authentication policy.",
+      "recommendation_implementation": "Replace inline password compare with a call to a credential verifier using Argon2id; add exponential backoff and cap attempts (e.g., 5). Do not echo passwords; zeroize buffers after use.",
+      "references": [
+        "OWASP Top 10 2021 A07: Identification and Authentication Failures",
+        "OWASP ASVS 4.0 - V2: Authentication Verification Requirements",
+        "CWE-798: Use of Hard-coded Credentials",
+        "CWE-307: Improper Restriction of Excessive Authentication Attempts",
+        "CWE-521: Weak Password Requirements",
+        "STRIDE: Spoofing",
+        "NIST SP 800-53 Rev.5 IA-5: Authenticator Management",
+        "NIST SP 800-53 Rev.5 AC-7: Unsuccessful Logon Attempts",
+        "NIST SP 800-63B 5.1.1: Memorized Secrets"
+      ]
+    },
+    {
+      "id": "DF2",
+      "uc_id": "UC4",
+      "label": "Undefined authorization model",
+      "design_flaw": "The system grants access after login with no defined roles or authorization checks for operations like renting.",
+      "description": "Once authenticated, there is no indication of role-based or contextual access control. Any authenticated user can browse and rent without least privilege or policy enforcement.",
+      "severity": "Medium",
+      "confidence": "Medium",
+      "impact_cia": {
+        "Confidentiality": "Medium",
+        "Integrity": "Medium",
+        "Availability": "Low"
+      },
+      "evidence": {
+        "bindings": [
+          {
+            "functionFullName": "Menu:void()",
+            "file": "CarRentalManagementSystem.cpp",
+            "lines": [
+              30
+            ]
+          },
+          {
+            "functionFullName": "user_input:void(int)",
+            "file": "CarRentalManagementSystem.cpp",
+            "lines": [
+              67
+            ]
+          }
+        ],
+        "code_snippets": []
+      },
+      "recommendation_design": "Define an authorization model (e.g., RBAC) and enforce policy decisions at each protected action (browse, view details, rent). Centralize authorization checks.",
+      "recommendation_implementation": "Introduce an isAuthorized(subject, action, resource) gate before rental confirmation and sensitive operations; implement deny-by-default.",
+      "references": [
+        "OWASP Top 10 2021 A01: Broken Access Control",
+        "OWASP ASVS 4.0 - V4: Access Control Verification Requirements",
+        "CWE-284: Improper Access Control",
+        "STRIDE: Elevation of Privilege",
+        "NIST SP 800-53 Rev.5 AC-3: Access Enforcement",
+        "NIST SP 800-53 Rev.5 AC-6: Least Privilege"
+      ]
+    },
+    {
+      "id": "DF3",
+      "uc_id": "UC5",
+      "label": "Missing input validation and canonicalization",
+      "design_flaw": "User-provided fields (name, national ID, payment amount) lack defined validation rules and centralized input handling.",
+      "description": "Data crosses the user-to-application trust boundary without explicit validation, increasing risks such as type/format errors, injection into downstream sinks, and application instability.",
+      "severity": "Medium",
+      "confidence": "Medium",
+      "impact_cia": {
+        "Confidentiality": "Low",
+        "Integrity": "Medium",
+        "Availability": "Medium"
+      },
+      "evidence": {
+        "bindings": [
+          {
+            "functionFullName": "user_input:void(int)",
+            "file": "CarRentalManagementSystem.cpp",
+            "lines": [
+              67
+            ]
+          }
+        ],
+        "code_snippets": []
+      },
+      "recommendation_design": "Establish a centralized validation layer with strict schemas for all inputs (lengths, character sets, numeric ranges) and reject/normalize unexpected values before processing.",
+      "recommendation_implementation": "Validate national ID format via regex/length, ensure payment is a non-negative bounded numeric type, and clamp indices; handle parsing errors and provide user-safe messages.",
+      "references": [
+        "OWASP ASVS 4.0 - V5: Validation, Sanitization and Encoding",
+        "OWASP Top 10 2021 A03: Injection",
+        "CWE-20: Improper Input Validation",
+        "CWE-116: Improper Encoding or Escaping of Output",
+        "STRIDE: Tampering",
+        "NIST SP 800-53 Rev.5 SI-10: Information Input Validation"
+      ]
+    },
+    {
+      "id": "DF4",
+      "uc_id": "UC4",
+      "label": "Lack of data classification and lifecycle for PII",
+      "design_flaw": "Personal data (name, national ID) and payment amounts are collected without defined classification, retention, or erasure policies.",
+      "description": "Handling PII without classification and lifecycle controls can cause unnecessary exposure, retention beyond need, and privacy non-compliance.",
+      "severity": "Medium",
+      "confidence": "Medium",
+      "impact_cia": {
+        "Confidentiality": "High",
+        "Integrity": "Low",
+        "Availability": "Low"
+      },
+      "evidence": {
+        "bindings": [
+          {
+            "functionFullName": "user_input:void(int)",
+            "file": "CarRentalManagementSystem.cpp",
+            "lines": [
+              67
+            ]
+          }
+        ],
+        "code_snippets": []
+      },
+      "recommendation_design": "Define data classification (PII, payment data) and a minimal retention policy; avoid storing PII unless necessary and specify erasure triggers.",
+      "recommendation_implementation": "Do not persist PII by default; if stored in memory, zeroize after use. Redact PII from outputs and ensure any storage uses encryption-at-rest if later introduced.",
+      "references": [
+        "OWASP Top 10 2021 A02: Cryptographic Failures (Sensitive Data Exposure)",
+        "OWASP ASVS 4.0 - V1: Architecture, Design and Threat Modeling",
+        "OWASP ASVS 4.0 - V8: Data Protection",
+        "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor",
+        "CWE-359: Exposure of Private Personal Information",
+        "STRIDE: Information Disclosure",
+        "NIST SP 800-53 Rev.5 DM-2: Data Retention and Disposal",
+        "NIST SP 800-53 Rev.5 AR-4: Privacy Monitoring and Auditing"
+      ]
+    },
+    {
+      "id": "DF5",
+      "uc_id": "UC1",
+      "label": "Insufficient auditing and monitoring",
+      "design_flaw": "There is no evidence of logging for authentication attempts, critical state changes, or rental confirmations.",
+      "description": "Without audit logs, the system cannot detect brute-force attempts, investigate incidents, or provide non-repudiation for rentals.",
+      "severity": "Medium",
+      "confidence": "Medium",
+      "impact_cia": {
+        "Confidentiality": "Low",
+        "Integrity": "Medium",
+        "Availability": "Low"
+      },
+      "evidence": {
+        "bindings": [
+          {
+            "functionFullName": "login:int()",
+            "file": "CarRentalManagementSystem.cpp",
+            "lines": [
+              135
+            ]
+          },
+          {
+            "functionFullName": "checklease:void(int)",
+            "file": "CarRentalManagementSystem.cpp",
+            "lines": [
+              58
+            ]
+          }
+        ],
+        "code_snippets": []
+      },
+      "recommendation_design": "Define an audit strategy covering auth successes/failures and rental transactions with secure log storage and tamper detection.",
+      "recommendation_implementation": "Emit structured logs (timestamp, action, result) for login attempts and rentals; avoid logging secrets/PII. Add log rotation and integrity checks.",
+      "references": [
+        "OWASP Top 10 2021 A09: Security Logging and Monitoring Failures",
+        "OWASP ASVS 4.0 - V7: Error Handling and Logging",
+        "CWE-778: Insufficient Logging",
+        "STRIDE: Repudiation",
+        "NIST SP 800-53 Rev.5 AU-2: Event Logging",
+        "NIST SP 800-53 Rev.5 AU-12: Audit Record Generation"
+      ]
+    },
+    {
+      "id": "DF6",
+      "uc_id": "UC1",
+      "label": "Insecure secrets management (potential hardcoded or in-process secret comparison)",
+      "design_flaw": "The login routine likely compares a password directly in-process, suggesting a hardcoded or plaintext reference and no secret lifecycle control.",
+      "description": "Hardcoded credentials or plaintext comparison expose the secret in binaries and memory, enabling easy reverse-engineering and compromise.",
+      "severity": "High",
+      "confidence": "Low",
+      "impact_cia": {
+        "Confidentiality": "High",
+        "Integrity": "Medium",
+        "Availability": "Low"
+      },
+      "evidence": {
+        "bindings": [
+          {
+            "functionFullName": "login:int()",
+            "file": "CarRentalManagementSystem.cpp",
+            "lines": [
+              135
+            ]
+          }
+        ],
+        "code_snippets": []
+      },
+      "recommendation_design": "Externalize secrets and use a proper secrets store; never embed secrets in source/binaries. Use hashed verifiers with strong KDF and rotate secrets.",
+      "recommendation_implementation": "Remove any literal passwords; load hashed verifier from config/secure store, compare using constant-time functions, and zeroize buffers.",
+      "references": [
+        "OWASP Top 10 2021 A07: Identification and Authentication Failures",
+        "OWASP ASVS 4.0 - V6: Stored Cryptography",
+        "CWE-798: Use of Hard-coded Credentials",
+        "CWE-522: Insufficiently Protected Credentials",
+        "STRIDE: Spoofing",
+        "NIST SP 800-53 Rev.5 SC-12: Cryptographic Key Establishment and Management",
+        "NIST SP 800-53 Rev.5 IA-5: Authenticator Management"
+      ]
+    }
+  ],
+  "action_items": [
+    {
+      "id": "AI1",
+      "type": "missing_source",
+      "binding_or_target": "login:int()",
+      "note": "No source code provided for bound function; cannot confirm authentication implementation details."
+    },
+    {
+      "id": "AI2",
+      "type": "missing_source",
+      "binding_or_target": "Menu:void()",
+      "note": "No source code provided for bound function; cannot verify input handling for menu selection."
+    },
+    {
+      "id": "AI3",
+      "type": "missing_source",
+      "binding_or_target": "Details:void(int)",
+      "note": "No source code provided for bound function; cannot verify bounds checking on selection index."
+    },
+    {
+      "id": "AI4",
+      "type": "missing_source",
+      "binding_or_target": "user_input:void(int)",
+      "note": "No source code provided for bound function; cannot verify validation and PII handling."
+    },
+    {
+      "id": "AI5",
+      "type": "missing_source",
+      "binding_or_target": "checklease:void(int)",
+      "note": "No source code provided for bound function; cannot verify numeric validation and decision logic."
+    }
+  ],
+  "executive_summary": {
+    "top_risks": [
+      {
+        "id": "DF1",
+        "label": "Weak authentication",
+        "severity": "High"
+      },
+      {
+        "id": "DF6",
+        "label": "Insecure secrets management",
+        "severity": "High"
+      },
+      {
+        "id": "DF3",
+        "label": "Missing input validation",
+        "severity": "Medium"
+      }
+    ],
+    "summary_text": "The Simple Car Rental System is a console-based C++ application with authentication, browsing, and rental flows implemented in a single translation unit. Key risks stem from weak authentication design (likely in-process/plaintext password comparison without throttling), absence of an explicit authorization model, and lack of structured input validation across trust boundaries. Handling of PII lacks classification and lifecycle controls, and auditing is insufficient to detect misuse. Providing source for bound functions is necessary to confirm and remediate these issues."
+  },
+  "risk_heatmap": {
+    "Critical": [],
+    "High": [
+      "DF1",
+      "DF6"
+    ],
+    "Medium": [
+      "DF2",
+      "DF3",
+      "DF4",
+      "DF5"
+    ],
+    "Low": []
+  },
+  "recommendation_roadmap": [
+    {
+      "phase": "quick_win",
+      "design_findings": [
+        "DF1",
+        "DF3",
+        "DF5"
+      ],
+      "estimate": "1–2 days: add input validation, disable password echo, add basic login throttling and structured logs."
+    },
+    {
+      "phase": "mid",
+      "design_findings": [
+        "DF2",
+        "DF4"
+      ],
+      "estimate": "3–7 days: define RBAC/authorization checks, introduce data classification and minimal retention/erasure policies."
+    },
+    {
+      "phase": "long",
+      "design_findings": [
+        "DF6"
+      ],
+      "estimate": "1–2 weeks: externalize credentials, implement hashed verifiers with strong KDF, secret rotation, and memory zeroization."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+
+actor "Admin" as Admin
+actor "Employee" as Employee
+actor "Analyzer" as Analyzer
+
+rectangle "System" {
+  usecase UC1 as "User Add"
+  usecase UC2 as "Search Product"
+  usecase UC3 as "Add Product"
+  usecase UC4 as "Remove Product"
+  usecase UC5 as "Update Product"
+  usecase UC6 as "Refund Product"
+  usecase UC7 as "Refunds"
+  usecase UC8 as "Sales"
+  usecase UC9 as "Logs"
+}
+
+Admin --> UC1
+Employee --> UC2
+Employee --> UC3
+Employee --> UC4
+Employee --> UC5
+Employee --> UC6
+Analyzer --> UC7
+Analyzer --> UC8
+Analyzer --> UC9
+
+@enduml

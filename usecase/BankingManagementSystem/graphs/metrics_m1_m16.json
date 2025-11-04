@@ -1,0 +1,333 @@
+{
+  "meta": {
+    "source_cpg": "/work/out/cpg.bin",
+    "methods_total": 263
+  },
+  "M1": {
+    "count": 263
+  },
+  "M2": {
+    "entryPointCount": 28,
+    "entryPoints": [
+      "main:int()",
+      "User.User:void()",
+      "User.User:void(string,string)",
+      "Customer.Customer:void()",
+      "Customer.Customer:void(string,string)",
+      "Admin.Admin:void()",
+      "Admin.Admin:void(string,string)",
+      "Account.Account:void()",
+      "Account.Account:void(string,string,int,double,string,string,int)",
+      "SavingsAccount.SavingsAccount:void()",
+      "SavingsAccount.SavingsAccount:void(string,int)",
+      "SavingsAccount.SavingsAccount:void(string,string,int,double,string,string,int)",
+      "CheckingAccount.CheckingAccount:void()",
+      "CheckingAccount.CheckingAccount:void(string,int)",
+      "CheckingAccount.CheckingAccount:void(string,string,int,double,string,string,int)",
+      "Loan.Loan:void(string,string,int,double,double,string,string)",
+      "Loan.Loan:void()",
+      "StudentFeeLoan.StudentFeeLoan:void()",
+      "StudentFeeLoan.StudentFeeLoan:void(string,int)",
+      "StudentFeeLoan.StudentFeeLoan:void(string,string,int,double,double,string,string,string)",
+      "Personalloan.Personalloan:void()",
+      "Personalloan.Personalloan:void(string,int)",
+      "Personalloan.Personalloan:void(string,string,int,double,double,int,string,string)",
+      "Investment.Investment:void()",
+      "Investment.Investment:void(string,string,int,double,string,string)",
+      "RelativeInvestment.RelativeInvestment:void()",
+      "RelativeInvestment.RelativeInvestment:void(string,int)",
+      "RelativeInvestment.RelativeInvestment:void(string,string,int,double,string,string,string,string)"
+    ]
+  },
+  "M3": {
+    "callEdges": 1147
+  },
+  "M4": {
+    "if": 112,
+    "switch": 13,
+    "loop": 60,
+    "total": 320
+  },
+  "M5": {
+    "cfg_nodes_sum": 11291,
+    "cfg_edges_sum": 10625,
+    "cfg_backedges_sum": 5569,
+    "cfg_basic_segments_sum": 1157,
+    "cfg_longest_max": 106
+  },
+  "M6": {
+    "branchCount": 112,
+    "loopCount": 60,
+    "switchCount": 13,
+    "errorExitTotal": 0
+  },
+  "M7": {
+    "cliArgsUse": 0,
+    "sharedArtifactsCount": 85,
+    "filesTouchedExamples": [
+      "<global> Inp",
+      "<global> Out",
+      "file",
+      "filename",
+      "ios::app",
+      "ios::out",
+      "this->checkdatafile",
+      "this->personLoanDataFile",
+      "this->relativeinvestFile",
+      "this->savedatafile"
+    ],
+    "networkEndpointsExamples": []
+  },
+  "M8": {
+    "consoleInCount": 0,
+    "consoleOutCount": 0,
+    "fileIOCount": 31,
+    "netIOCount": 0,
+    "envIOCount": 0
+  },
+  "M9": {
+    "nameCluesExamples": [
+      {
+        "fn": "Personalloan.sreachaccount:void()",
+        "clues": []
+      },
+      {
+        "fn": "StudentFeeLoan.getenrollmentYear:string()",
+        "clues": []
+      },
+      {
+        "fn": "Admin.Admin:void(string,string)",
+        "clues": []
+      },
+      {
+        "fn": "StudentFeeLoan.getemail:ANY()",
+        "clues": []
+      },
+      {
+        "fn": "<unresolvedNamespace>._strtime_s:<unresolvedSignature>(2)",
+        "clues": []
+      },
+      {
+        "fn": "Personalloan.calculateInterest:void()",
+        "clues": []
+      },
+      {
+        "fn": "Account.getcardtype:string()",
+        "clues": []
+      },
+      {
+        "fn": "istringstream.istringstream:void(ANY)",
+        "clues": []
+      },
+      {
+        "fn": "Personalloan.getloannumber:int()",
+        "clues": []
+      },
+      {
+        "fn": "Investment.calculateReturns:void()",
+        "clues": []
+      }
+    ]
+  },
+  "M10": {
+    "tfidfTopTermsExamples": [
+      {
+        "fn": "getCurrentTime:string()",
+        "top": [
+          {
+            "t": "currentdate",
+            "w": 1.1151898206292632
+          },
+          {
+            "t": "11",
+            "w": 1.1151898206292632
+          },
+          {
+            "t": "currenttime",
+            "w": 1.1151898206292632
+          },
+          {
+            "t": "9",
+            "w": 1.1151898206292632
+          },
+          {
+            "t": "now",
+            "w": 0.3717299402097544
+          }
+        ]
+      },
+      {
+        "fn": "User.User:void()",
+        "top": [
+          {
+            "t": "user",
+            "w": 1.3713678795450501
+          },
+          {
+            "t": "this",
+            "w": 0.34657359027997264
+          }
+        ]
+      },
+      {
+        "fn": "User.User:void(string,string)",
+        "top": [
+          {
+            "t": "username",
+            "w": 0.9075097385227507
+          },
+          {
+            "t": "password",
+            "w": 0.6578775309949689
+          },
+          {
+            "t": "user",
+            "w": 0.34284196988626253
+          },
+          {
+            "t": "this",
+            "w": 0.25993019270997947
+          }
+        ]
+      },
+      {
+        "fn": "User.setusername:void(string)",
+        "top": [
+          {
+            "t": "name",
+            "w": 1.0125706661691571
+          },
+          {
+            "t": "setusername",
+            "w": 0.9765603845172741
+          },
+          {
+            "t": "this",
+            "w": 0.2772588722239781
+          }
+        ]
+      },
+      {
+        "fn": "User.setpassword:void(string)",
+        "top": [
+          {
+            "t": "pass",
+            "w": 1.2712215321391784
+          },
+          {
+            "t": "setpassword",
+            "w": 0.9765603845172741
+          },
+          {
+            "t": "this",
+            "w": 0.2772588722239781
+          }
+        ]
+      },
+      {
+        "fn": "User.changePassword:void()",
+        "top": [
+          {
+            "t": "newpassword",
+            "w": 0.5869420108575069
+          },
+          {
+            "t": "t",
+            "w": 0.41369077694780876
+          },
+          {
+            "t": "changepassword",
+            "w": 0.29347100542875343
+          },
+          {
+            "t": "tpassword",
+            "w": 0.29347100542875343
+          },
+          {
+            "t": "changed",
+            "w": 0.29347100542875343
+          }
+        ]
+      },
+      {
+        "fn": "User.getname:string()",
+        "top": [
+          {
+            "t": "getname",
+            "w": 1.6276006408621235
+          },
+          {
+            "t": "this",
+            "w": 0.46209812037329684
+          }
+        ]
+      },
+      {
+        "fn": "User.getpassword:string()",
+        "top": [
+          {
+            "t": "getpassword",
+            "w": 1.6276006408621235
+          },
+          {
+            "t": "this",
+            "w": 0.46209812037329684
+          }
+        ]
+      },
+      {
+        "fn": "User.~User:ANY()",
+        "top": [
+          {
+            "t": "user",
+            "w": 1.3713678795450501
+          },
+          {
+            "t": "this",
+            "w": 0.34657359027997264
+          }
+        ]
+      },
+      {
+        "fn": "Customer.Customer:void()",
+        "top": [
+          {
+            "t": "customer",
+            "w": 1.545521226679158
+          },
+          {
+            "t": "this",
+            "w": 0.34657359027997264
+          }
+        ]
+      }
+    ]
+  },
+  "M11": {
+    "hasCommentsFuncs": 0,
+    "commentsTotal": 0
+  },
+  "M12": {
+    "cyclomaticSum": 448,
+    "recursiveFuncs": 2,
+    "maxDepthEst": 106
+  },
+  "M13": {
+    "crossModuleCallEdges": 1074,
+    "publicApiCount": 27
+  },
+  "M14": {
+    "unsafeCallsDistinct": 0,
+    "highCouplingCount": 31,
+    "unvalidatedInputSum": 5
+  },
+  "M15": {
+    "inheritanceEdges": 7,
+    "sharedGlobalsApprox": 85
+  },
+  "M16": {
+    "enabled": false,
+    "ucdTerms": [],
+    "matchesCount": 0
+  }
+}

@@ -1,0 +1,31 @@
+@startuml
+left to right direction
+
+actor "Customer" as Customer
+actor "Admin" as Admin
+
+rectangle "Vehicle Booking System" {
+  usecase UC1 as "Register"
+  usecase UC2 as "Login"
+  usecase UC3 as "Search Vehicles"
+  usecase UC4 as "Book Vehicle"
+  usecase UC5 as "Make Payment"
+  usecase UC6 as "Manage Booking"
+  usecase UC7 as "Add/Edit Vehicle"
+  usecase UC8 as "Generate Report"
+}
+
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+UC1 --> UC3
+UC2 --> UC3
+UC3 --> UC4
+UC4 --> UC5
+UC4 --> UC6
+
+Admin --> UC6
+Admin --> UC7
+UC7 --> UC8
+
+@enduml

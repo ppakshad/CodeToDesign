@@ -1,0 +1,101 @@
+@startuml
+left to right direction
+
+actor "Customer" as Customer
+actor "Admin" as Admin
+
+rectangle "Banking/ATM System" {
+  usecase UC1 as "Display Investment"
+  usecase UC2 as "Calculate Investment Return"
+  usecase UC3 as "Withdraw Funds"
+  usecase UC4 as "Search Account"
+  usecase UC5 as "Display Account"
+  usecase UC6 as "Deposit Funds"
+  usecase UC7 as "Change Password"
+  usecase UC8 as "Calculate Loan Interest"
+  usecase UC9 as "Display Loan"
+  usecase UC10 as "Search Investment"
+  usecase UC11 as "Search Loan"
+  usecase UC12 as "Update Account"
+  usecase UC13 as "Delete Account"
+  usecase UC14 as "Apply/Add Loan"
+  usecase UC15 as "Add Investment"
+  usecase UC16 as "Save Account Data"
+  usecase UC17 as "Update Loan"
+  usecase UC18 as "Delete Loan"
+  usecase UC19 as "Save Loan Data"
+  usecase UC20 as "Update Investment"
+  usecase UC21 as "Delete Investment"
+  usecase UC22 as "Save Investment Data"
+  usecase UC23 as "Open Account"
+  usecase UC24 as "Login"
+}
+
+usecase UC25 as "Risk Acknowledgement"
+usecase UC26 as "Provide Eligibility Docs"
+usecase UC27 as "Insufficient Funds"
+
+' Associations - Customer
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+Customer --> UC4
+Customer --> UC5
+Customer --> UC6
+Customer --> UC7
+Customer --> UC8
+Customer --> UC9
+Customer --> UC10
+Customer --> UC11
+Customer --> UC12
+Customer --> UC13
+Customer --> UC14
+Customer --> UC15
+Customer --> UC16
+Customer --> UC17
+
+' Associations - Admin
+Admin --> UC12
+Admin --> UC13
+Admin --> UC14
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
+Admin --> UC18
+Admin --> UC19
+Admin --> UC20
+Admin --> UC21
+Admin --> UC22
+Admin --> UC23
+
+' Includes
+UC1 ..> UC24 : <<include>>
+UC2 ..> UC24 : <<include>>
+UC3 ..> UC24 : <<include>>
+UC4 ..> UC24 : <<include>>
+UC5 ..> UC24 : <<include>>
+UC6 ..> UC24 : <<include>>
+UC7 ..> UC24 : <<include>>
+UC8 ..> UC24 : <<include>>
+UC9 ..> UC24 : <<include>>
+UC10 ..> UC24 : <<include>>
+UC11 ..> UC24 : <<include>>
+UC12 ..> UC24 : <<include>>
+UC13 ..> UC24 : <<include>>
+UC14 ..> UC24 : <<include>>
+UC15 ..> UC24 : <<include>>
+UC16 ..> UC24 : <<include>>
+UC17 ..> UC24 : <<include>>
+UC18 ..> UC24 : <<include>>
+UC19 ..> UC24 : <<include>>
+UC20 ..> UC24 : <<include>>
+UC21 ..> UC24 : <<include>>
+UC22 ..> UC24 : <<include>>
+UC23 ..> UC24 : <<include>>
+
+' Extends
+UC14 ..> UC25 : <<extend>>
+UC14 ..> UC26 : <<extend>>
+UC3 ..> UC27 : <<extend>>
+
+@enduml

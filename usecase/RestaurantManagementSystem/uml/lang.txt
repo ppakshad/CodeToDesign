@@ -1,0 +1,35 @@
+@startuml
+left to right direction
+
+actor "Client" as Client
+actor "Restaurant Administrator" as Admin
+
+rectangle "Restaurant Management System" {
+  usecase UC1 as "Check Available\nTables"
+  usecase UC2 as "View Menu"
+  usecase UC3 as "Order Food"
+  usecase UC4 as "Choose Delivery\nOption"
+  usecase UC5 as "Edit Menu"
+  usecase UC6 as "Check Personal\nOrder Status"
+  usecase UC7 as "Make Payment"
+  usecase UC8 as "Check Payment\nValidity"
+  usecase UC9 as "Check All Orders\nStatus"
+  usecase UC10 as "Write Feedback"
+}
+
+Client --> UC1
+Client --> UC2
+Client --> UC4
+Client --> UC6
+Client --> UC7
+Client --> UC9
+Client --> UC10
+
+Admin --> UC5
+Admin --> UC9
+
+UC2 ..> UC3 : <<extend>>
+UC4 ..> UC3 : <<include>>
+UC7 ..> UC8 : <<include>>
+
+@enduml

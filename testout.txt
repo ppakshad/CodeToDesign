@@ -1,0 +1,195 @@
+================ Use Case 1 ================
+UC_ID       : UC1
+Label       : Login to System
+Actors      : User
+Trigger     : Application start invokes login prompt (main calls login).
+Description : The User authenticates to access the Simple Car Rental System using a password. Successful login grants access to the menu.
+
+Preconditions:
+    - 1. Application is started and running.
+    - 2. Console I/O is available for password entry.
+Postconditions:
+    - 1. User session is granted access to the main menu.
+    - 2. Screen is cleared and system is ready for further actions.
+
+Normal Flow:
+    - 1.0.1 User starts the application.
+    - 1.0.2 System displays a password prompt.
+    - 1.0.3 User enters the password.
+    - 1.0.4 System validates the password and grants access.
+
+Alternative Flows:
+    - (none)
+
+Exceptions:
+    - 1.0.E.1 cause=Incorrect password entered response=System displays 'Access Aborted...Please Try Again!!' and prompts again state=rolled back
+    -     * 1.0.E.1.1 System rejects the attempt and re-prompts for password.
+
+Threats:
+    - (none)
+
+Bindings:
+    - {"fullName": "login:int()", "file": "CarRentalManagementSystem.cpp", "codeBody": "", "codeBody_available": false, "line": 135, "score": 0.86, "evidence": {"lexical": ["login", "pass", "cout"], "graph": "main:int() → login:int()", "io": "console:/getch"}}
+
+================ Use Case 2 ================
+UC_ID       : UC2
+Label       : Browse Available Cars
+Actors      : User
+Trigger     : User reaches the main menu after login.
+Description : The User browses the list of available car companies/models from the menu.
+
+Preconditions:
+    - 1. User is authenticated.
+    - 2. Car catalog is initialized in memory.
+Postconditions:
+    - 1. Selected car index is captured for subsequent actions.
+    - 2. Car details can be displayed for the selected item.
+
+Normal Flow:
+    - 2.0.1 User opens the main menu.
+    - 2.0.2 System displays a numbered list of available car companies.
+    - 2.0.3 User selects a car from the list.
+    - 2.0.4 System proceeds to show details for the selected car.
+
+Alternative Flows:
+    - 2.1 2.1.1 User chooses to continue browsing other cars.
+    - 2.1 2.1.2 System redisplays the menu.
+
+Exceptions:
+    - (none)
+
+Threats:
+    - (none)
+
+Bindings:
+    - {"fullName": "Menu:void()", "file": "CarRentalManagementSystem.cpp", "codeBody": "", "codeBody_available": false, "line": 30, "score": 0.81, "evidence": {"lexical": ["menu", "cout", "company"], "graph": "main:int() → Menu:void()", "io": "console:/stdout"}}
+
+================ Use Case 3 ================
+UC_ID       : UC3
+Label       : View Selected Car Details
+Actors      : User
+Trigger     : User selects a car from the menu.
+Description : The system displays details of the selected car, including model, color, maximum speed, and price.
+
+Preconditions:
+    - 1. A car selection has been made.
+    - 2. Car attributes are available in memory.
+Postconditions:
+    - 1. Car details are displayed to the user.
+    - 2. The selection is ready for potential rental.
+
+Normal Flow:
+    - 3.0.1 User confirms a selection from the menu.
+    - 3.0.2 System displays model, color, maximum speed, and price of the selected car.
+
+Alternative Flows:
+    - (none)
+
+Exceptions:
+    - (none)
+
+Threats:
+    - (none)
+
+Bindings:
+    - {"fullName": "Details:void(int)", "file": "CarRentalManagementSystem.cpp", "codeBody": "", "codeBody_available": false, "line": 43, "score": 0.84, "evidence": {"lexical": ["details", "model", "color"], "graph": "main:int() → Details:void(int)", "io": "console:/stdout"}}
+
+================ Use Case 4 ================
+UC_ID       : UC4
+Label       : Rent a Car
+Actors      : User
+Trigger     : User confirms they want to rent the selected car.
+Description : The User proceeds to rent a car by providing personal details and payment amount; the system verifies the payment and confirms the rental if sufficient.
+
+Preconditions:
+    - 1. User is authenticated and a car has been selected.
+    - 2. Console I/O available for data entry.
+Postconditions:
+    - 1. Personal details and payment input are recorded.
+    - 2. Rental is confirmed if payment meets or exceeds car price.
+
+Normal Flow:
+    - 4.0.1 User confirms the intention to rent the selected car.
+    - 4.0.2 System prompts for personal details and payment amount.
+    - 4.0.3 User enters personal details and payment amount.
+    - 4.0.4 System verifies the payment amount against the car price.
+    - 4.0.5 System confirms the rental on successful verification.
+
+Alternative Flows:
+    - 4.1 4.1.1 User chooses not to proceed (no).
+    - 4.1 4.1.2 System clears screen and returns to the menu.
+    - 4.2 4.2.1 User chooses to exit.
+    - 4.2 4.2.2 System clears screen and terminates the session.
+
+Exceptions:
+    - 4.0.E.1 cause=Payment amount is less than the car price response=System displays 'Not Available' and does not complete rental state=rolled back
+    -     * 4.0.E.1.1 System rejects rental due to insufficient payment.
+
+Threats:
+    - (none)
+
+Bindings:
+    - {"fullName": "user_input:void(int)", "file": "CarRentalManagementSystem.cpp", "codeBody": "", "codeBody_available": false, "line": 67, "score": 0.69, "evidence": {"lexical": ["lease", "user", "input"], "graph": "main:int() → user_input:void(int)", "io": "console:/stdin"}}
+    - {"fullName": "checklease:void(int)", "file": "CarRentalManagementSystem.cpp", "codeBody": "", "codeBody_available": false, "line": 58, "score": 0.62, "evidence": {"lexical": ["checklease", "payment", "price"], "graph": "user_input:void(int) → checklease:void(int)", "io": "console:/stdout"}}
+
+================ Use Case 5 ================
+UC_ID       : UC5
+Label       : Enter Personal Details
+Actors      : User
+Trigger     : System prompts for renter details after user confirms renting.
+Description : The User provides name, national ID, and payment amount required to process the rental.
+
+Preconditions:
+    - 1. User has confirmed the intention to rent a car.
+    - 2. Input fields are available via console.
+Postconditions:
+    - 1. Personal details are stored in memory structures.
+    - 2. Payment amount is captured for verification.
+
+Normal Flow:
+    - 5.0.1 System prompts for name, national ID, and payment amount.
+    - 5.0.2 User enters the requested information.
+    - 5.0.3 System records the provided details.
+
+Alternative Flows:
+    - (none)
+
+Exceptions:
+    - (none)
+
+Threats:
+    - (none)
+
+Bindings:
+    - {"fullName": "user_input:void(int)", "file": "CarRentalManagementSystem.cpp", "codeBody": "", "codeBody_available": false, "line": 67, "score": 0.83, "evidence": {"lexical": ["user", "input", "lease"], "graph": "main:int() → user_input:void(int)", "io": "console:/stdin"}}
+
+================ Use Case 6 ================
+UC_ID       : UC6
+Label       : Verify Payment Amount
+Actors      : User
+Trigger     : Rental process requires checking the provided payment against the car price.
+Description : The system compares the provided payment amount with the selected car's price and decides whether to approve the rental.
+
+Preconditions:
+    - 1. Car selection and payment amount are available.
+    - 2. Car pricing data is initialized.
+Postconditions:
+    - 1. Approval decision is made based on payment sufficiency.
+    - 2. User is informed of success or failure.
+
+Normal Flow:
+    - 6.0.1 System compares the provided payment amount with the car's price.
+    - 6.0.2 If the payment is sufficient, the system indicates success.
+
+Alternative Flows:
+    - (none)
+
+Exceptions:
+    - 6.0.E.1 cause=Payment is less than required price response=System indicates unavailability and stops the rental workflow state=rolled back
+    -     * 6.0.E.1.1 System displays 'Not Available'.
+
+Threats:
+    - (none)
+
+Bindings:
+    - {"fullName": "checklease:void(int)", "file": "CarRentalManagementSystem.cpp", "codeBody": "", "codeBody_available": false, "line": 58, "score": 0.82, "evidence": {"lexical": ["checklease", "payment", "price"], "graph": "user_input:void(int) → checklease:void(int)", "io": "console:/stdout"}}

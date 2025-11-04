@@ -1,0 +1,300 @@
+{
+  "meta": {
+    "source_cpg": "/work/out/cpg.bin",
+    "methods_total": 220
+  },
+  "M1": {
+    "count": 220
+  },
+  "M2": {
+    "entryPointCount": 8,
+    "entryPoints": [
+      "main:int(int,char[]*)",
+      "DBController.DBController:void(QObject*)",
+      "frmAbout.frmAbout:void(QWidget*)",
+      "frmLogin.frmLogin:void(QWidget*)",
+      "frmMain.frmMain:void(QWidget*)",
+      "frmProduct.frmProduct:void(QWidget*)",
+      "frmRegister.frmRegister:void(QWidget*)",
+      "MainWindow.MainWindow:void(QWidget*)"
+    ]
+  },
+  "M3": {
+    "callEdges": 664
+  },
+  "M4": {
+    "if": 94,
+    "switch": 0,
+    "loop": 6,
+    "total": 159
+  },
+  "M5": {
+    "cfg_nodes_sum": 4210,
+    "cfg_edges_sum": 3657,
+    "cfg_backedges_sum": 2056,
+    "cfg_basic_segments_sum": 745,
+    "cfg_longest_max": 51
+  },
+  "M6": {
+    "branchCount": 94,
+    "loopCount": 6,
+    "switchCount": 0,
+    "errorExitTotal": 1
+  },
+  "M7": {
+    "cliArgsUse": 2,
+    "sharedArtifactsCount": 26,
+    "filesTouchedExamples": [
+      "this",
+      "this->m_db"
+    ],
+    "networkEndpointsExamples": [
+      "SIGNAL(LoginOK(QString))",
+      "SIGNAL(Refresh())",
+      "SIGNAL(triggered())",
+      "SLOT(loginOKWith(QString))",
+      "SLOT(on_btnRefresh_clicked())",
+      "SLOT(quitApp())",
+      "SLOT(showMenuAbout())",
+      "event",
+      "this",
+      "this->m_frmLogin"
+    ]
+  },
+  "M8": {
+    "consoleInCount": 0,
+    "consoleOutCount": 0,
+    "fileIOCount": 4,
+    "netIOCount": 6,
+    "envIOCount": 0
+  },
+  "M9": {
+    "nameCluesExamples": [
+      {
+        "fn": "frmAbout.frmAbout:void()",
+        "clues": []
+      },
+      {
+        "fn": "DBController.DBController:void(QObject*)",
+        "clues": []
+      },
+      {
+        "fn": "<unresolvedNamespace>.fetchAndStoreOrdered:<unresolvedSignature>(1)",
+        "clues": []
+      },
+      {
+        "fn": "frmAbout.frmAbout:void(QWidget*)",
+        "clues": []
+      },
+      {
+        "fn": "<unresolvedNamespace>.Q_ASSERT:<unresolvedSignature>(1)",
+        "clues": []
+      },
+      {
+        "fn": "<unresolvedNamespace>.setEnabled:<unresolvedSignature>(1)",
+        "clues": []
+      },
+      {
+        "fn": "<unresolvedNamespace>.setCurrentIndex:<unresolvedSignature>(1)",
+        "clues": []
+      },
+      {
+        "fn": "QApplication.QApplication:void(int,char**)",
+        "clues": []
+      },
+      {
+        "fn": "<unresolvedNamespace>.setChecked:<unresolvedSignature>(1)",
+        "clues": []
+      },
+      {
+        "fn": "frmMain.on_tblProducts_activated:void(QModelIndex&)",
+        "clues": []
+      }
+    ]
+  },
+  "M10": {
+    "tfidfTopTermsExamples": [
+      {
+        "fn": "DBController.DBController:void(QObject*)",
+        "top": [
+          {
+            "t": "parent",
+            "w": 1.380901020984976
+          },
+          {
+            "t": "dbcontroller",
+            "w": 0.8599100825699287
+          },
+          {
+            "t": "this",
+            "w": 0.4895101726488463
+          }
+        ]
+      },
+      {
+        "fn": "DBController.createInstance:DBController*()",
+        "top": [
+          {
+            "t": "tmp",
+            "w": 0.9009114104864108
+          },
+          {
+            "t": "0",
+            "w": 0.8325408266886777
+          },
+          {
+            "t": "createinstance",
+            "w": 0.6747703376897191
+          },
+          {
+            "t": "this",
+            "w": 0.15297192895276446
+          }
+        ]
+      },
+      {
+        "fn": "DBController.~DBController:ANY()",
+        "top": [
+          {
+            "t": "dbcontroller",
+            "w": 2.1497752064248217
+          },
+          {
+            "t": "this",
+            "w": 0.6118877158110578
+          }
+        ]
+      },
+      {
+        "fn": "DBController.instance:DBController*()",
+        "top": [
+          {
+            "t": "instance",
+            "w": 2.1497752064248217
+          },
+          {
+            "t": "this",
+            "w": 0.6118877158110578
+          }
+        ]
+      },
+      {
+        "fn": "DBController.SetupDB:void()",
+        "top": [
+          {
+            "t": "this",
+            "w": 0.6118877158110578
+          },
+          {
+            "t": "setupdb",
+            "w": 0.3855830501084109
+          },
+          {
+            "t": "qmysql",
+            "w": 0.3855830501084109
+          },
+          {
+            "t": "localhost",
+            "w": 0.3855830501084109
+          },
+          {
+            "t": "3306",
+            "w": 0.3855830501084109
+          }
+        ]
+      },
+      {
+        "fn": "DBController.IsOpen:bool()",
+        "top": [
+          {
+            "t": "isopen",
+            "w": 1.568338506985936
+          },
+          {
+            "t": "this",
+            "w": 0.8158502877480771
+          }
+        ]
+      },
+      {
+        "fn": "DBController.Connect:bool()",
+        "top": [
+          {
+            "t": "connect",
+            "w": 1.262908263027884
+          },
+          {
+            "t": "this",
+            "w": 0.8158502877480771
+          }
+        ]
+      },
+      {
+        "fn": "DBController.Disconnect:void()",
+        "top": [
+          {
+            "t": "disconnect",
+            "w": 1.799387567172584
+          },
+          {
+            "t": "this",
+            "w": 0.8158502877480771
+          }
+        ]
+      },
+      {
+        "fn": "DBController.GetError:QString()",
+        "top": [
+          {
+            "t": "geterror",
+            "w": 1.568338506985936
+          },
+          {
+            "t": "this",
+            "w": 0.8158502877480771
+          }
+        ]
+      },
+      {
+        "fn": "DBController.GetDB:QSqlDatabase()",
+        "top": [
+          {
+            "t": "getdb",
+            "w": 1.568338506985936
+          },
+          {
+            "t": "this",
+            "w": 0.8158502877480771
+          }
+        ]
+      }
+    ]
+  },
+  "M11": {
+    "hasCommentsFuncs": 0,
+    "commentsTotal": 0
+  },
+  "M12": {
+    "cyclomaticSum": 320,
+    "recursiveFuncs": 0,
+    "maxDepthEst": 51
+  },
+  "M13": {
+    "crossModuleCallEdges": 650,
+    "publicApiCount": 7
+  },
+  "M14": {
+    "unsafeCallsDistinct": 0,
+    "highCouplingCount": 30,
+    "unvalidatedInputSum": 1
+  },
+  "M15": {
+    "inheritanceEdges": 7,
+    "sharedGlobalsApprox": 26
+  },
+  "M16": {
+    "enabled": false,
+    "ucdTerms": [],
+    "matchesCount": 0
+  }
+}

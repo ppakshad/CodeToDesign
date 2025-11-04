@@ -1,0 +1,31 @@
+@startuml
+left to right direction
+
+actor "admin" as Admin
+actor "Student" as Student
+actor "Professor" as Professor
+
+rectangle "Learning Management System" {
+  usecase UC1 as "Add new student(s)"
+  usecase UC2 as "Add new professor(s)"
+  usecase UC3 as "show the Student profile"
+  usecase UC4 as "show the Professor profile"
+  usecase UC5 as "show the class Profile"
+  usecase UC6 as "Search by\nclass/student/professor"
+  usecase UC7 as "Export the class\n/student/professor info\nto a csv file"
+}
+
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+Admin --> UC7
+
+Student --> UC3
+Student --> UC5
+
+Professor --> UC4
+Professor --> UC5
+@enduml

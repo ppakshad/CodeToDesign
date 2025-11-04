@@ -1,0 +1,332 @@
+{
+  "meta": {
+    "source_cpg": "/work/out/cpg.bin",
+    "methods_total": 232
+  },
+  "M1": {
+    "count": 232
+  },
+  "M2": {
+    "entryPointCount": 18,
+    "entryPoints": [
+      "main:int(int,char[]*)",
+      "Admin.Admin:void(QWidget*)",
+      "Person.Person:void()",
+      "Person.Person:void(string,string,int,string,string)",
+      "Professor.Professor:void()",
+      "Professor.Professor:void(string,string,int,string,string,string)",
+      "Student.Student:void()",
+      "Student.Student:void(string,string,int,string,string,string)",
+      "Course.Course:void()",
+      "Course.Course:void(string,string,string)",
+      "CreateCourse.CreateCourse:void(QWidget*)",
+      "CreateProfessor.CreateProfessor:void(QWidget*)",
+      "CreateStudent.CreateStudent:void(QWidget*)",
+      "EditCourse.EditCourse:void(QWidget*)",
+      "EditProfessor.EditProfessor:void(QWidget*)",
+      "EditStudent.EditStudent:void(QWidget*)",
+      "MainMenu.MainMenu:void(QWidget*)",
+      "Database.Database:void()"
+    ]
+  },
+  "M3": {
+    "callEdges": 809
+  },
+  "M4": {
+    "if": 70,
+    "switch": 0,
+    "loop": 50,
+    "total": 159
+  },
+  "M5": {
+    "cfg_nodes_sum": 4532,
+    "cfg_edges_sum": 4020,
+    "cfg_backedges_sum": 2422,
+    "cfg_basic_segments_sum": 879,
+    "cfg_longest_max": 29
+  },
+  "M6": {
+    "branchCount": 70,
+    "loopCount": 50,
+    "switchCount": 0,
+    "errorExitTotal": 0
+  },
+  "M7": {
+    "cliArgsUse": 2,
+    "sharedArtifactsCount": 31,
+    "filesTouchedExamples": [
+      "\"Grades.csv\"",
+      "myfile",
+      "this"
+    ],
+    "networkEndpointsExamples": []
+  },
+  "M8": {
+    "consoleInCount": 0,
+    "consoleOutCount": 0,
+    "fileIOCount": 12,
+    "netIOCount": 0,
+    "envIOCount": 0
+  },
+  "M9": {
+    "nameCluesExamples": [
+      {
+        "fn": "Student.getGrade:ANY()",
+        "clues": []
+      },
+      {
+        "fn": "Course.getProfessors:vector()",
+        "clues": []
+      },
+      {
+        "fn": "Course.getLecHall:string()",
+        "clues": []
+      },
+      {
+        "fn": "CreateStudent.~CreateStudent:ANY()",
+        "clues": [
+          "create"
+        ]
+      },
+      {
+        "fn": "CreateProfessor.isNum:bool(QString)",
+        "clues": [
+          "create"
+        ]
+      },
+      {
+        "fn": "MainMenu.on_pushButton_2_clicked:void()",
+        "clues": []
+      },
+      {
+        "fn": "Person.RemoveCourse:void(Course&)",
+        "clues": [
+          "remove"
+        ]
+      },
+      {
+        "fn": "CreateProfessor.on_pushButton_clicked:void()",
+        "clues": [
+          "create"
+        ]
+      },
+      {
+        "fn": "<unresolvedNamespace>.setEmail:<unresolvedSignature>(1)",
+        "clues": []
+      },
+      {
+        "fn": "Person.getMobile:string()",
+        "clues": []
+      }
+    ]
+  },
+  "M10": {
+    "tfidfTopTermsExamples": [
+      {
+        "fn": "Admin.Admin:void(QWidget*)",
+        "top": [
+          {
+            "t": "tmp",
+            "w": 0.602567383703666
+          },
+          {
+            "t": "parent",
+            "w": 0.4816567016979807
+          },
+          {
+            "t": "0",
+            "w": 0.3671504647033569
+          },
+          {
+            "t": "this",
+            "w": 0.2746097237291003
+          },
+          {
+            "t": "admin",
+            "w": 0.27440003865225715
+          }
+        ]
+      },
+      {
+        "fn": "Admin.~Admin:ANY()",
+        "top": [
+          {
+            "t": "admin",
+            "w": 1.2805335137105334
+          },
+          {
+            "t": "this",
+            "w": 0.5126048176276539
+          }
+        ]
+      },
+      {
+        "fn": "Admin.on_pushButton_clicked:void()",
+        "top": [
+          {
+            "t": "menu",
+            "w": 0.4955489503241546
+          },
+          {
+            "t": "tmp",
+            "w": 0.3834519714477875
+          },
+          {
+            "t": "admin",
+            "w": 0.34923641283014545
+          },
+          {
+            "t": "ui",
+            "w": 0.25563464763185834
+          },
+          {
+            "t": "username",
+            "w": 0.2477744751620773
+          }
+        ]
+      },
+      {
+        "fn": "Person.Person:void()",
+        "top": [
+          {
+            "t": "person",
+            "w": 2.1762130824487955
+          },
+          {
+            "t": "this",
+            "w": 0.38445361322074045
+          }
+        ]
+      },
+      {
+        "fn": "Person.Person:void(string,string,int,string,string)",
+        "top": [
+          {
+            "t": "m",
+            "w": 0.5120501370467754
+          },
+          {
+            "t": "l",
+            "w": 0.4782051873465659
+          },
+          {
+            "t": "e",
+            "w": 0.4782051873465659
+          },
+          {
+            "t": "f",
+            "w": 0.430503409922076
+          },
+          {
+            "t": "a",
+            "w": 0.3079794246481746
+          }
+        ]
+      },
+      {
+        "fn": "Person.setfirstName:void(string)",
+        "top": [
+          {
+            "t": "setfirstname",
+            "w": 0.9515782546011512
+          },
+          {
+            "t": "s",
+            "w": 0.943998400082954
+          },
+          {
+            "t": "this",
+            "w": 0.30756289057659236
+          }
+        ]
+      },
+      {
+        "fn": "Person.getfirstName:string()",
+        "top": [
+          {
+            "t": "getfirstname",
+            "w": 1.4508087216325303
+          },
+          {
+            "t": "this",
+            "w": 0.5126048176276539
+          }
+        ]
+      },
+      {
+        "fn": "Person.setlastName:void(string)",
+        "top": [
+          {
+            "t": "setlastname",
+            "w": 0.9515782546011512
+          },
+          {
+            "t": "s",
+            "w": 0.943998400082954
+          },
+          {
+            "t": "this",
+            "w": 0.30756289057659236
+          }
+        ]
+      },
+      {
+        "fn": "Person.getlastName:string()",
+        "top": [
+          {
+            "t": "getlastname",
+            "w": 1.4508087216325303
+          },
+          {
+            "t": "this",
+            "w": 0.5126048176276539
+          }
+        ]
+      },
+      {
+        "fn": "Person.setAge:void(int)",
+        "top": [
+          {
+            "t": "age",
+            "w": 1.402051321804155
+          },
+          {
+            "t": "setage",
+            "w": 0.9515782546011512
+          },
+          {
+            "t": "this",
+            "w": 0.30756289057659236
+          }
+        ]
+      }
+    ]
+  },
+  "M11": {
+    "hasCommentsFuncs": 0,
+    "commentsTotal": 0
+  },
+  "M12": {
+    "cyclomaticSum": 352,
+    "recursiveFuncs": 0,
+    "maxDepthEst": 29
+  },
+  "M13": {
+    "crossModuleCallEdges": 805,
+    "publicApiCount": 17
+  },
+  "M14": {
+    "unsafeCallsDistinct": 0,
+    "highCouplingCount": 28,
+    "unvalidatedInputSum": 1
+  },
+  "M15": {
+    "inheritanceEdges": 10,
+    "sharedGlobalsApprox": 31
+  },
+  "M16": {
+    "enabled": false,
+    "ucdTerms": [],
+    "matchesCount": 0
+  }
+}

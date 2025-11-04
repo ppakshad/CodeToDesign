@@ -1,0 +1,113 @@
+@startuml
+left to right direction
+
+actor "Admin" as Admin
+
+rectangle "Learning Management System" {
+  usecase UC1 as "Login"
+  usecase UC2 as "Verify\nPassword"
+  usecase UC3 as "Login Error"
+  usecase UC4 as "Add New Admin"
+  usecase UC5 as "Enter new Admin\nusername & Password"
+  usecase UC6 as "Add new admin\nto database"
+  usecase UC7 as "Confirmed\nPassword doesn't match"
+  usecase UC8 as "Show Course List"
+  usecase UC9 as "Search For Course"
+  usecase UC10 as "Search for\ncourse"
+  usecase UC11 as "No course found"
+  usecase UC12 as "Filter Courses\nBy supervisor"
+  usecase UC13 as "Filter courses\nwith supervisor"
+  usecase UC14 as "No courses\nwith selected supervisor"
+  usecase UC15 as "Add new course"
+  usecase UC16 as "Check available\ntime slots"
+  usecase UC17 as "Show Selected\nCourse Details"
+  usecase UC18 as "Design new professor\nto course"
+  usecase UC19 as "Add new student\nto course"
+  usecase UC20 as "Show enrolled\nstudents and their grades"
+  usecase UC21 as "Show enrolled\ncourses"
+  usecase UC22 as "Enroll selected student\nat new course"
+  usecase UC23 as "Show List of Students"
+  usecase UC24 as "Search for Student"
+  usecase UC25 as "Search for student\nin database"
+  usecase UC26 as "No student found"
+  usecase UC27 as "Filter Students\nby Grade"
+  usecase UC28 as "Filter students\nwith selected grade"
+  usecase UC29 as "No student with\nselected grade"
+  usecase UC30 as "Show Selected\nStudent Details"
+  usecase UC31 as "Add new Student"
+  usecase UC32 as "Check regex of\nmobile & email"
+  usecase UC33 as "New Student added"
+  usecase UC34 as "Show List of Professors"
+  usecase UC35 as "Search for Professor"
+  usecase UC36 as "Search for professor\nin database"
+  usecase UC37 as "No professor found"
+  usecase UC38 as "Filter Professors\nby ID"
+  usecase UC39 as "Filter professors\nwith selected ID"
+  usecase UC40 as "No professor found\nby selected ID"
+  usecase UC41 as "Show Selected\nProfessor Details"
+  usecase UC42 as "Add New Professor"
+  usecase UC43 as "Check regex of\nmobile & email"
+  usecase UC44 as "New professor added"
+  usecase UC45 as "Assign new course\nto selected professor"
+  usecase UC46 as "Show assigned\ncourses"
+  usecase UC47 as "Export All Data"
+  usecase UC48 as "Write data\nto csv file"
+}
+
+Admin --> UC1
+Admin --> UC4
+Admin --> UC8
+Admin --> UC9
+Admin --> UC12
+Admin --> UC15
+Admin --> UC23
+Admin --> UC24
+Admin --> UC27
+Admin --> UC31
+Admin --> UC34
+Admin --> UC35
+Admin --> UC38
+Admin --> UC42
+Admin --> UC47
+
+UC1 ..> UC2 : <<include>>
+UC1 ..> UC3 : <<extend>>
+UC4 ..> UC5 : <<include>>
+UC5 ..> UC6 : <<include>>
+UC5 ..> UC7 : <<extend>>
+UC8 ..> UC17 : <<extend>>
+UC9 ..> UC10 : <<include>>
+UC9 ..> UC11 : <<extend>>
+UC12 ..> UC13 : <<include>>
+UC12 ..> UC14 : <<extend>>
+UC15 ..> UC16 : <<include>>
+UC17 ..> UC18 : <<extend>>
+UC17 ..> UC19 : <<extend>>
+UC17 ..> UC20 : <<extend>>
+UC17 ..> UC21 : <<include>>
+UC21 ..> UC22 : <<extend>>
+UC23 ..> UC25 : <<include>>
+UC24 ..> UC25 : <<include>>
+UC25 ..> UC26 : <<extend>>
+UC27 ..> UC28 : <<include>>
+UC28 ..> UC29 : <<extend>>
+UC23 ..> UC30 : <<extend>>
+UC24 ..> UC30 : <<extend>>
+UC27 ..> UC30 : <<extend>>
+UC31 ..> UC32 : <<include>>
+UC31 ..> UC33 : <<extend>>
+UC34 ..> UC36 : <<include>>
+UC35 ..> UC36 : <<include>>
+UC36 ..> UC37 : <<extend>>
+UC38 ..> UC39 : <<include>>
+UC39 ..> UC40 : <<extend>>
+UC34 ..> UC41 : <<extend>>
+UC35 ..> UC41 : <<extend>>
+UC38 ..> UC41 : <<extend>>
+UC41 ..> UC46 : <<include>>
+UC42 ..> UC43 : <<include>>
+UC42 ..> UC44 : <<extend>>
+UC46 ..> UC45 : <<extend>>
+UC47 ..> UC48 : <<include>>
+
+@enduml

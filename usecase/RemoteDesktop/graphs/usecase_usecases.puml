@@ -1,0 +1,54 @@
+@startuml
+left to right direction
+actor "User" as User
+actor "VNC Viewer" as Viewer
+actor "macOS Event System" as MacOS
+rectangle "VNC Remote Desktop System" {
+usecase UC1 as "Start VNC Server"
+usecase UC2 as "Accept Client Connection"
+usecase UC3 as "Send Screen Framebuffer"
+usecase UC4 as "Process Client Keyboard Event"
+usecase UC5 as "Process Client Pointer Event"
+usecase UC6 as "Disconnect Client"
+usecase UC7 as "Connect to VNC Server"
+usecase UC8 as "Disconnect from VNC Server"
+usecase UC9 as "Show Remote Screen"
+usecase UC10 as "Request Framebuffer Update"
+usecase UC11 as "Handle Framebuffer Update"
+usecase UC12 as "Send Keyboard Input"
+usecase UC13 as "Send Mouse Input"
+usecase UC14 as "Inject Key to OS"
+usecase UC15 as "Inject Mouse to OS"
+usecase UC16 as "Handle Connection Failure"
+usecase UC17 as "Capture Screen Image"
+
+note as N1
+Assumptions:\n• Viewer is an external app; server and viewer are separate apps.\n• OS input injection uses CoreGraphics (external to app).
+end note
+}
+
+User --> UC1
+Viewer --> UC2
+Viewer --> UC3
+Viewer --> UC4
+Viewer --> UC5
+Viewer --> UC6
+User --> UC7
+User --> UC8
+User --> UC9
+User --> UC10
+User --> UC11
+User --> UC12
+User --> UC13
+MacOS --> UC14
+MacOS --> UC15
+Viewer --> UC17
+
+UC9 ..> UC10 : <<include>>
+UC9 ..> UC11 : <<include>>
+UC3 ..> UC17 : <<include>>
+UC4 ..> UC14 : <<include>>
+UC5 ..> UC15 : <<include>>
+UC7 ..> UC16 : <<extend>>
+UC2 ..> UC6 : <<extend>>
+@enduml

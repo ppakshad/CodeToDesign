@@ -1,0 +1,353 @@
+{
+  "meta": {
+    "source_cpg": "/work/out/cpg.bin",
+    "methods_total": 283
+  },
+  "M1": {
+    "count": 283
+  },
+  "M2": {
+    "entryPointCount": 20,
+    "entryPoints": [
+      "main:int(int,char[]*)",
+      "Add_course_menu.Add_course_menu:void(QWidget*)",
+      "add_prof_menu.add_prof_menu:void(QWidget*)",
+      "add_stud_menu.add_stud_menu:void(QWidget*)",
+      "Courseinfo.Courseinfo:void(QWidget*)",
+      "coursemenu.coursemenu:void(QWidget*)",
+      "Dashboard.Dashboard:void(QWidget*)",
+      "error.error:void(QWidget*)",
+      "MainWindow.MainWindow:void(QWidget*)",
+      "member.member:void()",
+      "new_admin.new_admin:void(QWidget*)",
+      "profinfo.profinfo:void(QWidget*)",
+      "profmenu.profmenu:void(QWidget*)",
+      "studinfo.studinfo:void(QWidget*)",
+      "studmenu.studmenu:void(QWidget*)",
+      "course.course:void()",
+      "course.course:void(professor*,vector,QString,QString,QString,QString,QString)",
+      "professor.professor:void()",
+      "professor.professor:void(QString,QString,QString,QString,QString,QString,int)",
+      "student.student:void()"
+    ]
+  },
+  "M3": {
+    "callEdges": 1292
+  },
+  "M4": {
+    "if": 75,
+    "switch": 0,
+    "loop": 39,
+    "total": 140
+  },
+  "M5": {
+    "cfg_nodes_sum": 7804,
+    "cfg_edges_sum": 7233,
+    "cfg_backedges_sum": 4015,
+    "cfg_basic_segments_sum": 841,
+    "cfg_longest_max": 100
+  },
+  "M6": {
+    "branchCount": 75,
+    "loopCount": 39,
+    "switchCount": 0,
+    "errorExitTotal": 0
+  },
+  "M7": {
+    "cliArgsUse": 2,
+    "sharedArtifactsCount": 56,
+    "filesTouchedExamples": [
+      "\"../ExportedData/data.csv\"",
+      "QFile::ReadOnly",
+      "QIODevice::WriteOnly",
+      "file"
+    ],
+    "networkEndpointsExamples": []
+  },
+  "M8": {
+    "consoleInCount": 0,
+    "consoleOutCount": 0,
+    "fileIOCount": 5,
+    "netIOCount": 0,
+    "envIOCount": 0
+  },
+  "M9": {
+    "nameCluesExamples": [
+      {
+        "fn": "<unresolvedNamespace>.setWindowIcon:<unresolvedSignature>(1)",
+        "clues": []
+      },
+      {
+        "fn": "course.get_day:QString()",
+        "clues": []
+      },
+      {
+        "fn": "<unresolvedNamespace>.get_title:<unresolvedSignature>(0)",
+        "clues": []
+      },
+      {
+        "fn": "coursemenu.coursemenu:void(QWidget*)",
+        "clues": []
+      },
+      {
+        "fn": "member.get_mobile:QString()",
+        "clues": []
+      },
+      {
+        "fn": "<unresolvedNamespace>.setToolTip:<unresolvedSignature>(1)",
+        "clues": []
+      },
+      {
+        "fn": "add_stud_menu.~add_stud_menu:ANY()",
+        "clues": [
+          "add"
+        ]
+      },
+      {
+        "fn": "professor.professor:void(char[6],char[7],char[10],char[3],char[25],char[12],int)",
+        "clues": []
+      },
+      {
+        "fn": "studinfo.on_backbtn_clicked:void()",
+        "clues": []
+      },
+      {
+        "fn": "Courseinfo.reload_combo1:void()",
+        "clues": []
+      }
+    ]
+  },
+  "M10": {
+    "tfidfTopTermsExamples": [
+      {
+        "fn": "Add_course_menu.Add_course_menu:void(QWidget*)",
+        "top": [
+          {
+            "t": "0px",
+            "w": 0.569360768795874
+          },
+          {
+            "t": "this",
+            "w": 0.15624877951633018
+          },
+          {
+            "t": "qcombobox",
+            "w": 0.1423401921989685
+          },
+          {
+            "t": "combobox",
+            "w": 0.1423401921989685
+          },
+          {
+            "t": "popup",
+            "w": 0.1423401921989685
+          }
+        ]
+      },
+      {
+        "fn": "Add_course_menu.~Add_course_menu:ANY()",
+        "top": [
+          {
+            "t": "add_course_menu",
+            "w": 1.4208932923471052
+          },
+          {
+            "t": "this",
+            "w": 0.48114703533600084
+          }
+        ]
+      },
+      {
+        "fn": "Add_course_menu.on_btn_cancel_clicked:void()",
+        "top": [
+          {
+            "t": "on_btn_cancel_clicked",
+            "w": 2.824487119080603
+          },
+          {
+            "t": "this",
+            "w": 0.36086027650200064
+          }
+        ]
+      },
+      {
+        "fn": "Add_course_menu.on_btn_add_clicked:void()",
+        "top": [
+          {
+            "t": "new_course",
+            "w": 0.43453647985855437
+          },
+          {
+            "t": "empty_vec",
+            "w": 0.2896909865723695
+          },
+          {
+            "t": "tmp",
+            "w": 0.28343257667552096
+          },
+          {
+            "t": "this",
+            "w": 0.2775848280784621
+          },
+          {
+            "t": "database",
+            "w": 0.24812848352011516
+          }
+        ]
+      },
+      {
+        "fn": "Add_course_menu.on_combo_day_currentTextChanged:void(QString&)",
+        "top": [
+          {
+            "t": "45",
+            "w": 0.23681554872451752
+          },
+          {
+            "t": "1",
+            "w": 0.2294950333005662
+          },
+          {
+            "t": "this",
+            "w": 0.2272083222420004
+          },
+          {
+            "t": "15",
+            "w": 0.21428970938517505
+          },
+          {
+            "t": "database",
+            "w": 0.1792039047645276
+          }
+        ]
+      },
+      {
+        "fn": "Add_course_menu.on_combo_hall_currentTextChanged:void(QString&)",
+        "top": [
+          {
+            "t": "45",
+            "w": 0.23681554872451752
+          },
+          {
+            "t": "1",
+            "w": 0.2294950333005662
+          },
+          {
+            "t": "this",
+            "w": 0.2272083222420004
+          },
+          {
+            "t": "15",
+            "w": 0.21428970938517505
+          },
+          {
+            "t": "database",
+            "w": 0.1792039047645276
+          }
+        ]
+      },
+      {
+        "fn": "add_prof_menu.add_prof_menu:void(QWidget*)",
+        "top": [
+          {
+            "t": "media",
+            "w": 0.3541078715936409
+          },
+          {
+            "t": "tmp",
+            "w": 0.32511383795133286
+          },
+          {
+            "t": "iconstud",
+            "w": 0.26766834997018213
+          },
+          {
+            "t": "1",
+            "w": 0.182246055856332
+          },
+          {
+            "t": "parent",
+            "w": 0.18141322827645115
+          }
+        ]
+      },
+      {
+        "fn": "add_prof_menu.~add_prof_menu:ANY()",
+        "top": [
+          {
+            "t": "add_prof_menu",
+            "w": 1.4208932923471052
+          },
+          {
+            "t": "this",
+            "w": 0.48114703533600084
+          }
+        ]
+      },
+      {
+        "fn": "add_prof_menu.on_backbtn2_clicked:void()",
+        "top": [
+          {
+            "t": "on_backbtn2_clicked",
+            "w": 2.4779135288006304
+          },
+          {
+            "t": "this",
+            "w": 0.36086027650200064
+          }
+        ]
+      },
+      {
+        "fn": "add_prof_menu.on_addbtn_clicked:void()",
+        "top": [
+          {
+            "t": "proof",
+            "w": 0.3829813042821157
+          },
+          {
+            "t": "9",
+            "w": 0.30849911521987095
+          },
+          {
+            "t": "za",
+            "w": 0.29398974070515954
+          },
+          {
+            "t": "z0",
+            "w": 0.29398974070515954
+          },
+          {
+            "t": "a",
+            "w": 0.2699367258173871
+          }
+        ]
+      }
+    ]
+  },
+  "M11": {
+    "hasCommentsFuncs": 0,
+    "commentsTotal": 0
+  },
+  "M12": {
+    "cyclomaticSum": 397,
+    "recursiveFuncs": 0,
+    "maxDepthEst": 100
+  },
+  "M13": {
+    "crossModuleCallEdges": 1275,
+    "publicApiCount": 19
+  },
+  "M14": {
+    "unsafeCallsDistinct": 0,
+    "highCouplingCount": 35,
+    "unvalidatedInputSum": 1
+  },
+  "M15": {
+    "inheritanceEdges": 15,
+    "sharedGlobalsApprox": 56
+  },
+  "M16": {
+    "enabled": false,
+    "ucdTerms": [],
+    "matchesCount": 0
+  }
+}
