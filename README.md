@@ -24,21 +24,8 @@ This enables developers, security analysts, and researchers to visualize softwar
 
 The system follows a modular pipeline architecture:
 
-```
-C/C++ Source Code
-    ↓
-[Joern CPG Extraction]
-    ↓
-[Code Property Graph (CPG)]
-    ↓
-[Metrics Computation (M1–M16)]
-    ↓
-[JSON Metadata Export]
-    ↓
-[LLM Processing (GPT-5)]
-    ↓
-[UML Use Case Diagram + Security Report]
-```
+![Proposed Architecture](https://github.com/ppakshad/CodeToDesign/raw/main/Proposed%20Architecture%20(code-to-design)%20(1).png)
+
 
 ### Pipeline Stages
 
