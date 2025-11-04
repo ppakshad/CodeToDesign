@@ -98,7 +98,7 @@ println(s"M1 = $M1")
 ```
 
 
-###M2 – Entry Points
+### M2 – Entry Points
 Detect classic entry functions (main, WinMain, DllMain) plus public methods:
 
 ```scala
@@ -116,7 +116,7 @@ val M2 = entryPointFullNames.size
 println(s"M2 = $M2")
 ```
 
-###M3 – Call Graph Edges
+### M3 – Call Graph Edges
 Build caller–callee edges from call sites:
 
 ```scala
@@ -133,7 +133,7 @@ val M3_callEdgeCount = callEdges.size
 println(s"M3_callEdges = $M3_callEdgeCount")
 ```
 
-###MM4 – Branching Structures
+###M M4 – Branching Structures
 Count if, switch, and loop constructs from control structures:
 
 ```scala
@@ -157,7 +157,7 @@ val M4_total  = m4All.size
 println(s"M4_if = $M4_if, M4_switch = $M4_switch, M4_loop = $M4_loop, M4_total = $M4_total")
 ```
 
-###M5 – CFG Stats
+### M5 – CFG Stats
 Traverse cfgNext / cfgPrev to measure graph size and depth:
 
 ```scala
@@ -183,7 +183,7 @@ println(s"M5_cfg_edges_sum = $M5_edgesSum")
 println(s"M5_cfg_longest_max = $M5_longestMax")
 ```
 
-###M6 – Global Control Totals
+### M6 – Global Control Totals
 Count all control structures across the whole program:
 
 ```scala
@@ -195,7 +195,7 @@ println(s"M6_branch_loop_switch = ($branchCount, $loopCount, $switchCount)")
 ```
 
 
-###M7 / M8 – I/O and CLI Usage
+### M7 / M8 – I/O and CLI Usage
 Detect CLI arguments and common I/O APIs:
 
 ```scala
@@ -216,7 +216,7 @@ println(s"M8_file_net_env = ($fileIOCount, $netIOCount, $envIOCount)")
 ```
 
 
-###M9 – Name/Text Cues
+### M9 – Name/Text Cues
 Match function names and string literals against domain verbs:
 
 ```scala
@@ -269,7 +269,7 @@ println(s"M10_tfidfTopTermsExamples = ${funcBags.size}")
 ```
 
 
-###M11 – Comment Density
+### M11 – Comment Density
 Counts comment nodes per function to estimate documentation coverage.
 
 ```scala
@@ -281,7 +281,7 @@ println(s"M11_commentsTotal = $totalComments")
 ```
 
 
-###M12 – Complexity & Recursion
+### M12 – Complexity & Recursion
 Approximates cyclomatic complexity and detects recursive functions.
 
 ```scala
@@ -309,7 +309,7 @@ println(s"M12_cyclomaticSum = $cycloSum, recursiveFuncs = $recCount")
 
 
 
-###M13 – Cross-Module Coupling
+### M13 – Cross-Module Coupling
 Detects inter-file calls and public API exposure to measure modularity:
 
 ```scala
@@ -328,7 +328,7 @@ println(s"M13_crossModuleEdges = ${crossModuleEdges.size}, publicApiCount = ${pu
 ```
 
 
-###M14 – Security-Sensitive Patterns
+### M14 – Security-Sensitive Patterns
 
 Flags unsafe API usage, high-coupling functions, and unvalidated inputs.
 ```scala
@@ -358,7 +358,7 @@ println(s"M14_unsafeCalls = ${unsafeCalls.size}, highCoupling = ${highCouplingFu
 ```
 
 
-###M15 – Inheritance & Shared Globals
+### M15 – Inheritance & Shared Globals
 Detects inheritance edges and shared global variables to build class relationships.
 
 ```scala
@@ -373,7 +373,7 @@ println(s"M15_inheritanceEdges = ${inheritanceEdges.size}, sharedGlobals = ${glo
 ```
 
 
-###M16 – Use Case Domain (UCD) Term Matching
+### M16 – Use Case Domain (UCD) Term Matching
 Matches tokenized code artifacts against provided UCD_TERMS to detect use-case relevance.
 
 ```scala
