@@ -1,4 +1,4 @@
-# Code-to-Design: Automated Reverse Engineering of UML Use Case Diagrams from C/C++ Source Code
+# RevEngSecure: LLM-Augmented Reverse Engineering for Design-Level Software Defect and Security Analysis
 
 ## Abstract
 
@@ -163,13 +163,7 @@ project/
 │   ├── securityprompt.txt      # LLM prompt for security analysis
 │   ├── testout.txt             # Generated use case bindings
 │   └── securityReport.json     # Generated security report
-├── data/
-│   └── UmlProjects/
-│       ├── usecase/            # Analyzed projects (use case diagrams)
-│       ├── sequence/           # Sequence diagram examples
-│       ├── activity/           # Activity diagram examples
-│       ├── dfd/                # Data flow diagram examples
-│       └── projectMeta.txt     # Project metadata summary
+├── usecase/                    # Analyzed projects (use case diagrams)
 └── README.md                   # This file
 ```
 
@@ -244,10 +238,6 @@ If you use this framework in your research, please cite:
 }
 ```
 
-## License
-
-[Specify your license here, e.g., MIT, Apache 2.0, etc.]
-
 ## Acknowledgments
 
 - **Joern**: Code Property Graph framework for C/C++
@@ -256,7 +246,7 @@ If you use this framework in your research, please cite:
 
 ## Contact
 
-For questions, issues, or collaboration inquiries, please open an issue on GitHub or contact [your-email@example.com].
+For questions, issues, or collaboration inquiries, please open an issue on GitHub or contact [ppakshad@hawk.illinoistech.edu].
 
 ---
 
