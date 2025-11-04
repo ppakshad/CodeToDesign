@@ -2,9 +2,9 @@
 
 ## Abstract
 
-This repository presents **RevEngSecure (Code-to-Design)** — an AI-augmented reverse-engineering framework that bridges source code analysis and design-level security reasoning.  
-The system automatically extracts structural and semantic knowledge from **C/C++** projects by constructing a **Code Property Graph (CPG)**, computing sixteen analytical metrics (**M1–M16**), and leveraging **Large Language Models (LLMs)** to regenerate **UML Use Case Diagrams** and behavioral specifications.  
-In its final phase, the framework conducts **security compliance analysis** against established standards such as **OWASP**, **CWE**, **STRIDE**, **NIST**, and **ISO**, producing an interpretable and traceable **design-level security report** that maps architectural flaws directly to their implementation evidence.
+This repository presents RevEngSecure (Code-to-Design) — an AI-driven reverse-engineering framework that unifies static analysis, semantic reasoning, and security compliance evaluation.
+The system extracts structural and contextual knowledge from C/C++ software by constructing a Code Property Graph (CPG), computing sixteen analytical metrics (M1–M16), and employing Large Language Models (LLMs) to reconstruct UML Use Case Diagrams and detailed behavioral metadata.
+In its final stage, RevEngSecure performs design-level security analysis aligned with international standards such as OWASP ASVS, CWE, STRIDE, NIST SP 800-53/63, and ISO/IEC 27001/27034, generating a traceable security architecture report that links detected design flaws directly to their corresponding code-level artifacts.
 
 ## Overview
 
