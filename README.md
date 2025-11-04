@@ -2,11 +2,15 @@
 
 ## Abstract
 
-This repository presents an automated framework for reverse engineering UML Use Case Diagrams (UCDs) from C/C++ source code through static code analysis and large language model (LLM) integration. The system employs Joern-based Code Property Graph (CPG) extraction, comprehensive code metrics computation, and LLM-assisted semantic interpretation to generate structured UML diagrams and security architecture reports.
+This repository presents **RevEngSecure (Code-to-Design)** — an AI-augmented reverse-engineering framework that bridges source code analysis and design-level security reasoning.  
+The system automatically extracts structural and semantic knowledge from **C/C++** projects by constructing a **Code Property Graph (CPG)**, computing sixteen analytical metrics (**M1–M16**), and leveraging **Large Language Models (LLMs)** to regenerate **UML Use Case Diagrams** and behavioral specifications.  
+In its final phase, the framework conducts **security compliance analysis** against established standards such as **OWASP**, **CWE**, **STRIDE**, **NIST**, and **ISO**, producing an interpretable and traceable **design-level security report** that maps architectural flaws directly to their implementation evidence.
 
 ## Overview
 
-The **Code-to-Design** project implements a multi-stage pipeline that transforms raw C/C++ source code into high-level UML Use Case Diagrams and security analysis reports. By leveraging static code analysis, semantic extraction, and AI-driven pattern recognition, the framework enables automated documentation generation and architectural understanding of legacy or undocumented codebases.
+The **Code-to-Design (RevEngSecure)** pipeline performs an end-to-end transformation from raw source code to design-level insight and secure architecture evaluation.  
+Through a sequence of automated stages — **static analysis**, **CPG generation**, **metric extraction**, **LLM-driven design recovery**, and **standards-based security verification** — the framework reconstructs accurate high-level documentation for legacy or undocumented systems.  
+This enables developers, security analysts, and researchers to visualize software architecture, assess design integrity, and identify latent security weaknesses embedded within code structure and logic.
 
 ### Key Features
 
@@ -82,8 +86,8 @@ The system implements a comprehensive metrics suite (M1–M16) designed to captu
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/CodeToDesignProject.git
-   cd CodeToDesignProject/project
+   git clone https://github.com/ppakshad/CodeToDesign.git
+    cd CodeToDesign
    ```
 
 2. **Install Python Dependencies**
@@ -164,7 +168,11 @@ project/
 │   ├── testout.txt             # Generated use case bindings
 │   └── securityReport.json     # Generated security report
 ├── usecase/                    # Analyzed projects (use case diagrams)
-└── README.md                   # This file
+│   ├── BankingManagementSystem/
+│   ├── LearningManagmentSystem/
+│   └── ...
+├── spearman/
+└── README.md                   
 ```
 
 ## Example Outputs
@@ -230,11 +238,11 @@ Contributions are welcome! Areas for improvement:
 If you use this framework in your research, please cite:
 
 ```bibtex
-@software{CodeToDesign2024,
-  title = {Code-to-Design: Automated Reverse Engineering of UML Use Case Diagrams},
-  author = {Your Name},
-  year = {2024},
-  url = {https://github.com/yourusername/CodeToDesignProject}
+@software{Pakshad2025CodeToDesign,
+  title = {Code-to-Design: LLM-Augmented Reverse Engineering for Design-Level Security},
+  author = {Pakshad, Puya},
+  year = {2025},
+  url = {https://github.com/ppakshad/CodeToDesign}
 }
 ```
 
