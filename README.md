@@ -133,7 +133,7 @@ val M3_callEdgeCount = callEdges.size
 println(s"M3_callEdges = $M3_callEdgeCount")
 ```
 
-###M M4 – Branching Structures
+### M4 – Branching Structures
 Count if, switch, and loop constructs from control structures:
 
 ```scala
