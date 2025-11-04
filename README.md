@@ -98,13 +98,299 @@ println(s"M1 = $M1")
 ```
 
 
+###M2 – Entry Points
+Detect classic entry functions (main, WinMain, DllMain) plus public methods:
+
+```scala
+val entryPointNames = List("main","WinMain","DllMain")
+val entryMethods    = cpg.method.nameExact(entryPointNames:_*).l
+val publicMethods   = cpg.method.where(_.modifier.modifierType("PUBLIC")).l
+
+val entryPointFullNames =
+  (entryMethods.map(_.fullName) ++ publicMethods.map(_.fullName))
+    .map(_.trim)
+    .filter(fn => fn.nonEmpty)
+    .distinct
+
+val M2 = entryPointFullNames.size
+println(s"M2 = $M2")
+```
+
+###M3 – Call Graph Edges
+Build caller–callee edges from call sites:
+
+```scala
+case class Edge(caller:String, callee:String, file:String)
+
+val callEdges = cpg.call.l.map { call =>
+  val caller = call.method.fullName
+  val callee = Option(call.methodFullName).getOrElse(call.name)
+  val file   = call.file.name.headOption.getOrElse("")
+  Edge(caller, callee, file)
+}.distinct
+
+val M3_callEdgeCount = callEdges.size
+println(s"M3_callEdges = $M3_callEdgeCount")
+```
+
+###MM4 – Branching Structures
+Count if, switch, and loop constructs from control structures:
+
+```scala
+def lower(s:String) = s.toLowerCase
+def isIfCode(s:String) = lower(s).startsWith("if")
+def isSwitchCode(s:String) = lower(s).startsWith("switch")
+def isLoopCode(s:String) = {
+  val t = lower(s)
+  t.startsWith("for") || t.startsWith("while") || t.startsWith("do")
+}
+
+val m4All = cleanMethods.flatMap { m =>
+  m.controlStructure.l.map(_.code.trim)
+}
+
+val M4_if     = m4All.count(isIfCode)
+val M4_switch = m4All.count(isSwitchCode)
+val M4_loop   = m4All.count(isLoopCode)
+val M4_total  = m4All.size
+
+println(s"M4_if = $M4_if, M4_switch = $M4_switch, M4_loop = $M4_loop, M4_total = $M4_total")
+```
+
+###M5 – CFG Stats
+Traverse cfgNext / cfgPrev to measure graph size and depth:
+
+```scala
+case class CfgStats(nodes:Int, edges:Int, longest:Int)
+
+def cfgStats(m:Method): CfgStats = {
+  val nodes = m.cfgNode.l
+  val nodeCount = nodes.size
+  val edgeCount = nodes.map(_.cfgNext.size).sum
+  val orders = nodes.map(_.order)
+  val longest = if (orders.isEmpty) 1 else (orders.max - orders.min + 1)
+  CfgStats(nodeCount, edgeCount, longest)
+}
+
+val cfgByFunc = cleanMethods.map(m => m.fullName -> cfgStats(m)).toMap
+
+val M5_nodesSum   = cfgByFunc.values.map(_.nodes).sum
+val M5_edgesSum   = cfgByFunc.values.map(_.edges).sum
+val M5_longestMax = cfgByFunc.values.map(_.longest).foldLeft(0)(math.max)
+
+println(s"M5_cfg_nodes_sum = $M5_nodesSum")
+println(s"M5_cfg_edges_sum = $M5_edgesSum")
+println(s"M5_cfg_longest_max = $M5_longestMax")
+```
+
+###M6 – Global Control Totals
+Count all control structures across the whole program:
+
+```scala
+val branchCount = cpg.controlStructure.code.l.count(isIfCode)
+val loopCount   = cpg.controlStructure.code.l.count(isLoopCode)
+val switchCount = cpg.controlStructure.code.l.count(isSwitchCode)
+
+println(s"M6_branch_loop_switch = ($branchCount, $loopCount, $switchCount)")
+```
+
+
+###M7 / M8 – I/O and CLI Usage
+Detect CLI arguments and common I/O APIs:
+
+```scala
+// CLI
+val cliArgsUse = cpg.identifier.nameExact("argv","argc").size
+println(s"M7_cliArgs = $cliArgsUse)
+
+// I/O
+val ioFile = Set("fopen","fclose","fread","fwrite","open","close","read","write")
+val ioNet  = Set("connect","accept","send","recv","socket","listen")
+val ioEnv  = Set("getenv","setenv","putenv")
+
+val fileIOCount = cpg.call.name.l.count(ioFile.contains)
+val netIOCount  = cpg.call.name.l.count(ioNet.contains)
+val envIOCount  = cpg.call.name.l.count(ioEnv.contains)
+
+println(s"M8_file_net_env = ($fileIOCount, $netIOCount, $envIOCount)")
+```
+
+
+###M9 – Name/Text Cues
+Match function names and string literals against domain verbs:
+
+```scala
+val nameClues = List("login","logout","auth","register","create","delete","update","search")
+
+val nameCueMap =
+  cleanMethods.map(_.fullName).distinct.map { fn =>
+    val cues = nameClues.filter(k => fn.toLowerCase.contains(k)).toSet
+    fn -> cues
+  }.toMap
+
+println(s"M9_nameCluesExamples = ${nameCueMap.size}")
+```
+
+
+### M10 – TF–IDF Term Extraction
+Builds a bag-of-words per function using identifiers, parameters, and literals, then computes TF–IDF weights to capture domain-relevant tokens.
+
+```scala
+import scala.collection.mutable
+
+def splitTokens(s:String): Seq[String] =
+  s.toLowerCase.replaceAll("[^a-z0-9_]+"," ").split("\\s+").filter(_.nonEmpty).toSeq
+
+def bagOfWords(m:Method): Seq[String] = {
+  val parts = mutable.ArrayBuffer[String]()
+  parts += m.name
+  parts ++= m.parameter.name.l
+  parts ++= m.ast.isIdentifier.name.l
+  parts ++= m.ast.isLiteral.code.l
+  splitTokens(parts.mkString(" "))
+}
+
+val funcBags = cleanMethods.map(m => m.fullName -> bagOfWords(m)).toMap
+val termDocFreq = funcBags.values.flatten.distinct.groupBy(identity).view.mapValues(_.size).toMap
+val Ndocs = funcBags.size.max(1)
+
+def tfidf(fn:String, term:String): Double = {
+  val terms = funcBags.getOrElse(fn, Seq.empty)
+  val tf = terms.count(_ == term).toDouble / terms.size.max(1)
+  val df = termDocFreq.getOrElse(term, 1).toDouble
+  val idf = Math.log((Ndocs + 1.0) / df)
+  tf * idf
+}
+
+def topTerms(fn:String, k:Int=10): Seq[(String,Double)] =
+  funcBags.getOrElse(fn, Seq.empty).distinct.map(t => t -> tfidf(fn,t)).sortBy(-_._2).take(k)
+
+println(s"M10_tfidfTopTermsExamples = ${funcBags.size}")
+```
+
+
+###M11 – Comment Density
+Counts comment nodes per function to estimate documentation coverage.
+
+```scala
+val commentsPerFunc = cleanMethods.map(m => m.fullName -> m.comment.l.size).toMap
+val totalComments = commentsPerFunc.values.sum
+
+println(s"M11_commentsTotal = $totalComments")
+
+```
+
+
+###M12 – Complexity & Recursion
+Approximates cyclomatic complexity and detects recursive functions.
+
+```scala
+def cyclomaticApprox(m:Method): Int = {
+  val branches = m.controlStructure.l
+  1 + branches.count(_.code.startsWith("if")) +
+      branches.count(_.code.startsWith("switch")) +
+      branches.count(_.code.startsWith("for")) +
+      branches.count(_.code.startsWith("while"))
+}
+
+def isRecursive(m:Method): Boolean = {
+  val fn = m.fullName
+  cpg.call.nameExact(fn).nonEmpty
+}
+
+case class FlowInfo(cyclo:Int, recursive:Boolean)
+val perFuncComplexity = cleanMethods.map(m => m.fullName -> FlowInfo(cyclomaticApprox(m), isRecursive(m))).toMap
+
+val cycloSum = perFuncComplexity.values.map(_.cyclo).sum
+val recCount = perFuncComplexity.count(_._2.recursive)
+
+println(s"M12_cyclomaticSum = $cycloSum, recursiveFuncs = $recCount")
+```
 
 
 
+###M13 – Cross-Module Coupling
+Detects inter-file calls and public API exposure to measure modularity:
+
+```scala
+case class Edge(caller:String, callee:String, file:String)
+
+val callEdges = cpg.call.l.map { c =>
+  Edge(c.method.fullName, Option(c.methodFullName).getOrElse(c.name), c.file.name.headOption.getOrElse(""))
+}.distinct
+
+def fileOf(fn:String): String = cpg.method.fullNameExact(fn).file.name.headOption.getOrElse("")
+
+val crossModuleEdges = callEdges.filter(e => fileOf(e.caller) != fileOf(e.callee))
+val publicApiList = cpg.method.where(_.modifier.modifierType("PUBLIC")).fullName.l.distinct
+
+println(s"M13_crossModuleEdges = ${crossModuleEdges.size}, publicApiCount = ${publicApiList.size}")
+```
 
 
+###M14 – Security-Sensitive Patterns
+
+Flags unsafe API usage, high-coupling functions, and unvalidated inputs.
+```scala
+val knownUnsafe = Set("gets","strcpy","strcat","sprintf","scanf","memcpy","memmove")
+val unsafeCalls = cpg.call.name.l.filter(knownUnsafe.contains).distinct
+
+val degreeByFn = callEdges.flatMap(e => List(e.caller -> e.callee, e.callee -> e.caller))
+  .groupBy(_._1).view.mapValues(_.map(_._2).toSet.size).toMap
+
+val degVals = degreeByFn.values.toSeq.sorted
+def percIdx(vs: Seq[Int], p: Double): Int =
+  if (vs.isEmpty) 0 else vs((p * (vs.size - 1)).round.toInt.min(vs.size - 1))
+val highCouplingThreshold = percIdx(degVals, 0.9)
+val highCouplingFuncs = degreeByFn.filter(_._2 >= highCouplingThreshold).keys.toSeq
+
+def unvalidatedInputHeuristic(m:Method): Boolean = {
+  val ids = m.ast.isIdentifier.name.l.map(_.toLowerCase)
+  val lits = m.ast.isLiteral.code.l.map(_.toLowerCase)
+  val hasInput = ids.exists(Set("argv","input","buf","line").contains)
+  val hasValidate = (ids ++ lits).exists(s => s.contains("validate") || s.contains("sanitize") || s.contains("check"))
+  hasInput && !hasValidate
+}
+
+val unvalidatedCount = cleanMethods.count(unvalidatedInputHeuristic)
+
+println(s"M14_unsafeCalls = ${unsafeCalls.size}, highCoupling = ${highCouplingFuncs.size}, unvalidatedInput = $unvalidatedCount")
+```
 
 
+###M15 – Inheritance & Shared Globals
+Detects inheritance edges and shared global variables to build class relationships.
+
+```scala
+case class InheritEdge(child:String, parent:String)
+val inheritanceEdges =
+  cpg.typeDecl.l.flatMap(td => td.inheritsFromTypeFullName.l.map(p => InheritEdge(td.fullName, p)))
+
+val allIdentifiers = cpg.identifier.name.l
+val globals = allIdentifiers.groupBy(identity).filter(_._2.size >= 2).keys.toList
+
+println(s"M15_inheritanceEdges = ${inheritanceEdges.size}, sharedGlobals = ${globals.size}")
+```
+
+
+###M16 – Use Case Domain (UCD) Term Matching
+Matches tokenized code artifacts against provided UCD_TERMS to detect use-case relevance.
+
+```scala
+val ucdTerms: Seq[String] =
+  sys.env.get("UCD_TERMS")
+    .map(_.split(",").toSeq.map(_.trim.toLowerCase))
+    .getOrElse(Seq.empty)
+
+val ucdMatches = if (ucdTerms.nonEmpty) {
+  funcBags.flatMap { case (fn, terms) =>
+    val hits = ucdTerms.filter(t => terms.exists(_.contains(t)))
+    if (hits.nonEmpty) Some(fn -> hits) else None
+  }
+} else Map.empty[String,Seq[String]]
+
+println(s"M16_enabled = ${ucdTerms.nonEmpty}, matchedFunctions = ${ucdMatches.size}")
+```
 
 
 
