@@ -527,8 +527,7 @@ The repository includes a curated dataset of 12 C/C++ projects:
 
 ## Experimental Results: Design-Level Security Findings
 
-The following table presents the **security analysis results** obtained from the `BankingManagementSystem (C++)` project.  
-Each finding is automatically traced to its corresponding **Use Case(s)** and **Bound Function(s)** within the recovered design model.
+The following table presents the **security analysis results** obtained from the `BankingManagementSystem (C++)` project. Each finding is automatically traced to its corresponding **Use Case(s)** and **Bound Function(s)** within the recovered design model.
 
 | ID  | Project | Defect / Weakness | Short Description | Severity | Referenced Standards | Use Case(s) | Bound Function(s) |
 |-----|----------|------------------|-------------------|-----------|----------------------|--------------|--------------------|
