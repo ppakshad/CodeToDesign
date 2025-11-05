@@ -524,6 +524,28 @@ The repository includes a curated dataset of 12 C/C++ projects:
 
 **Total**: 38,966 LOC across 121 files, 4,823 functions (weighted avg complexity: 2.22)
 
+
+## Experimental Results: Design-Level Security Findings
+
+The following table presents the **security analysis results** obtained from the `BankingManagementSystem (C++)` project.  
+Each finding is automatically traced to its corresponding **Use Case(s)** and **Bound Function(s)** within the recovered design model.
+
+| ID  | Project | Defect / Weakness | Short Description | Severity | Referenced Standards | Use Case(s) | Bound Function(s) |
+|-----|----------|------------------|-------------------|-----------|----------------------|--------------|--------------------|
+| DF1 | *BankingManagementSystem (C++)* | Weak Authentication | Console password prompt uses static check without hashing or lockout, exposing system to brute-force and spoofing. | **High** | OWASP A07; CWE-798; NIST IA-5; STRIDE: Spoofing | UC1 – *Login to System* | `login:int()` |
+| DF2 | *BankingManagementSystem (C++)* | Undefined Authorization Model | No enforcement of role-based or contextual access; any authenticated user can perform financial operations. | **Medium** | OWASP A01; CWE-284; NIST AC-3, AC-6; STRIDE: EoP | UC4 – *Transfer Funds* | `menu:void()`, `user_input:void(int)` |
+| DF3 | *BankingManagementSystem (C++)* | Missing Input Validation | User-provided fields (account number, SSN, amount) lack validation or canonicalization before processing. | **Medium** | OWASP A03; CWE-20; NIST SI-10; STRIDE: Tampering | UC5 – *Submit Transaction* | `user_input:void(int)` |
+| DF4 | *BankingManagementSystem (C++)* | Lack of Data Classification / PII Lifecycle | Customer data and transaction records are processed without data classification or retention policy. | **Medium** | OWASP A02; CWE-200; ISO/IEC 27034; NIST DM-2 | UC4 – *Transfer Funds* | `user_input:void(int)`, `validate_account:void(int)` |
+| DF5 | *BankingManagementSystem (C++)* | Insufficient Auditing and Monitoring | Missing logging for login attempts, transfers, and account updates; no audit trail for repudiation analysis. | **Medium** | OWASP A09; CWE-778; NIST AU-2, AU-12; STRIDE: Repudiation | UC1 – *Login to System* | `login:int()`, `validate_account:void(int)` |
+| DF6 | *BankingManagementSystem (C++)* | Insecure Secrets Management | Potential hardcoded password or plaintext comparison within memory; no secret rotation or KDF. | **High** | OWASP A07; CWE-522; CWE-798; NIST SC-12; STRIDE: Spoofing | UC1 – *Login to System* | `login:int()` |
+
+---
+
+📘 **Note:**  
+All findings were generated as part of the `RevEngSecure` analysis pipeline, which reconstructs design-level artifacts and detects potential security flaws from source code automatically.
+
+
+
 ## Limitations
 
 - **Language Support**: Currently limited to C/C++ (via Joern CPG)
