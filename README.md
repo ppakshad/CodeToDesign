@@ -540,7 +540,7 @@ The following table presents the **security analysis results** obtained from the
 
 ---
 
-📘 **Note:**  
+**Note:**  
 All findings were generated as part of the `RevEngSecure` analysis pipeline, which reconstructs design-level artifacts and detects potential security flaws from source code automatically.
 
 
